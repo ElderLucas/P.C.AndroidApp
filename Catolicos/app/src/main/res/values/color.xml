@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="Color">#EF6C00</color>
+    <color name="ColorPrimary">#FFA726</color>
+    <color name="ColorPrimaryDark">#F57C00</color>
+    <color name="tabsScrollColor">#FFF3E0</color>
+
+
+
+
+
+
+
+    <!-- My Template
+    <color name="Color">#FF5722</color>
+    <color name="ColorDark">#E64A19</color>
+    -->
+
+</resources>
