@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="Color">#EF6C00</color>
+    <color name="Color">#E1F5FE</color>
+    <color name="tabsScrollColor">#A1887F</color>
+    <color name="ColorPrimaryDark">#01579B</color>
+    <color name="ColorPrimary">#0288D1</color>
+    <color name="ColorTab">#03A9F4</color>
+
+
+<!--    <color name="Color">#FFE0B2</color>
+    <color name="tabsScrollColor">#FFE0B2</color>
     <color name="ColorPrimary">#FFA726</color>
-    <color name="ColorPrimaryDark">#F57C00</color>
-    <color name="tabsScrollColor">#FFF3E0</color>
-
-
-
-
-
-
-
+    <color name="ColorPrimaryDark">#FB8C00</color>
+-->
     <!-- My Template
     <color name="Color">#FF5722</color>
     <color name="ColorDark">#E64A19</color>

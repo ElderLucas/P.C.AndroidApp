@@ -1,5 +1,7 @@
 package com.example.ysh.catolicos.app;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -12,16 +14,29 @@ public class MainActivity extends ActionBarActivity {
 
     private Toolbar toolbar;
 
+    Context context;
+
     ViewPager pager;
     ViewPagerAdapter adapter;
     SlidingTabLayout tabs;
-    CharSequence Titles[]={"Paroquias","Missas"};
-    int Numboftabs = 2;
+
+    String Paroquias = new String();
+    String Confissoes  = new String();
+    String Missas  = new String();
+
+    //CharSequence Titles[]={Paroquias,Missas};
+    //int Numboftabs = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Paroquias = getResources().getString(R.string.Paroquias);
+        Confissoes   = getResources().getString(R.string.Confissoes);
+        Missas       = getResources().getString(R.string.Missas);
+        CharSequence Titles[]={Paroquias,Missas,Confissoes};
+        int Numboftabs = 3;
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
