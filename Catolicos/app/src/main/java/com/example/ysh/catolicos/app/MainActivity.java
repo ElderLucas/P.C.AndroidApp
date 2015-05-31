@@ -13,30 +13,23 @@ import android.view.MenuItem;
 public class MainActivity extends ActionBarActivity {
 
     private Toolbar toolbar;
-
-    Context context;
-
     ViewPager pager;
     ViewPagerAdapter adapter;
     SlidingTabLayout tabs;
-
     String Paroquias = new String();
     String Confissoes  = new String();
     String Missas  = new String();
-
-    //CharSequence Titles[]={Paroquias,Missas};
-    //int Numboftabs = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Paroquias = getResources().getString(R.string.Paroquias);
-        Confissoes   = getResources().getString(R.string.Confissoes);
-        Missas       = getResources().getString(R.string.Missas);
-        CharSequence Titles[]={Paroquias,Missas,Confissoes};
-        int Numboftabs = 3;
+        Paroquias               = getResources().getString(R.string.Paroquias);
+        Confissoes              = getResources().getString(R.string.Confissoes);
+        Missas                  = getResources().getString(R.string.Missas);
+        CharSequence Titles[]   ={Paroquias,Missas,Confissoes};
+        int Numboftabs          = 3;
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
@@ -47,15 +40,13 @@ public class MainActivity extends ActionBarActivity {
 
         tabs = (SlidingTabLayout) findViewById(R.id.tabs);
         tabs.setDistributeEvenly(true);
-
         tabs.setCustomTabColorizer(
-                new SlidingTabLayout.TabColorizer() {
-                    @Override
-                    public int getIndicatorColor(int position) {
-                        return getResources().getColor(R.color.tabsScrollColor);
-                    }
-                });
-
+            new SlidingTabLayout.TabColorizer(){
+            @Override
+            public int getIndicatorColor(int position) {
+                return getResources().getColor(R.color.tabsScrollColor);
+            }
+        });
         tabs.setViewPager(pager);
     }
 
@@ -72,12 +63,10 @@ public class MainActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
