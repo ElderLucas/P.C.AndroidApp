@@ -32,7 +32,6 @@ public class CatolicosProvider extends ContentProvider {
 
     static final int PARISH                     = 300; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/PARISH
     static final int PARISH_WITH_LOCATION       = 301; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/PARISH
-    static final int PARISH_WITH_REGPASTORAL    = 302; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/PARISH
 
 
     /*
@@ -194,7 +193,7 @@ public class CatolicosProvider extends ContentProvider {
         /*
         As possiveis formaçções de uma URi para acessar a table Actitvity
         */
-        myURIMatcher.addURI(authority, CatolicosContract.PATH_ACTIVITY + "/*"   ,ACTIVITY);
+        myURIMatcher.addURI(authority, CatolicosContract.PATH_ACTIVITY + "/*"   ,ACTIVITY_WITH_PARISH);
         myURIMatcher.addURI(authority, CatolicosContract.PATH_ACTIVITY + "/*/*" ,ACTIVITY_WITH_PARISH_DAY);
 
         /*
@@ -224,7 +223,7 @@ public class CatolicosProvider extends ContentProvider {
         switch (match) {
             case ACTIVITY_WITH_PARISH_DAY:
                 return CatolicosContract.ActivityEntry.CONTENT_TYPE; // containing a Cursor of zero or more items.
-            case ACTIVITY:
+            case ACTIVITY_WITH_PARISH:
                 return CatolicosContract.ActivityEntry.CONTENT_TYPE; // containing a Cursor of zero or more items.
             case PARISH:
                 return CatolicosContract.ParishEntry.CONTENT_TYPE; //Aqui retorna uma seleção de intens....

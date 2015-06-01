@@ -15,11 +15,8 @@ public class TestCatolicosContract extends AndroidTestCase {
     public void testBuildActivityParishURi() {
 
         Uri ActivityParishUri = CatolicosContract.ActivityEntry.build_ActivityParish(TEST_ACTIVITY_PARISH);
-
         assertNotNull("Error: Null Uri returned.  You must fill-in buildWeatherLocation in " + "CatolicosContract.", ActivityParishUri);
-
         assertEquals("Error: Weather location not properly appended to the end of the Uri", TEST_ACTIVITY_PARISH, ActivityParishUri.getLastPathSegment());
-
         assertEquals("Error: Weather location Uri doesn't match our expected result", ActivityParishUri.toString(), "content://com.example.ysh.catolicos.app/atividade/SaoDimas");
     }
 

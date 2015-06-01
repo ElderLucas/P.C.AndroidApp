@@ -62,6 +62,7 @@ public class CatolicosContract {
          */
         public static final String CONTENT_ITEM_TYPE   = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_PARISH;
 
+
         public static final String TABLE_NAME          = "Parish";
         public static final String COLUMN_ID_PAROQUIA  = "ID_Paroquia";
         public static final String COLUMN_NOME         = "Nome";
