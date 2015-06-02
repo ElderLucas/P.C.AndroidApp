@@ -1,6 +1,7 @@
 package com.example.ysh.catolicos.app.data;
 
 import android.annotation.TargetApi;
+import android.app.SearchManager;
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
@@ -26,12 +27,13 @@ public class CatolicosProvider extends ContentProvider {
         O Motivo pelo qual se faz a consulta com numero maiores que dezena, é para agilizar a identificação
         da ordem da URi que esta entrado.
      */
-    static final int ACTIVITY                   = 100; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/ACTIVITY
-    static final int ACTIVITY_WITH_PARISH       = 101; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/PARISH_ACTIVITY/[ID_PAROQUIA QUERY]/[DAY QUERY]
-    static final int ACTIVITY_WITH_PARISH_DAY   = 102; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/PARISH_ACTIVITY/[ID_PAROQUIA QUERY]/[DAY QUERY]
+    static final int ACTIVITY                   = 100; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/ACTIVITY/
+    static final int ACTIVITY_WITH_PARISH       = 101; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/PARISH_ACTIVITY/[ARG1]
+    static final int ACTIVITY_WITH_PARISH_DAY   = 102; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/PARISH_ACTIVITY/[ARG1]/[ARG2]
 
-    static final int PARISH                     = 300; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/PARISH
-    static final int PARISH_WITH_LOCATION       = 301; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/PARISH
+    static final int PARISH                     = 300; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/PARISH/
+    static final int PARISH_WITH_NAME           = 301; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/PARISH/[ARG1]
+    static final int PARISH_WITH_LOCATION       = 302; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/PARISH/[ARG1]/[ARG2]
 
 
     /*
@@ -187,14 +189,16 @@ public class CatolicosProvider extends ContentProvider {
         /*
         As possiveis formaçções de uma URi para acessar a table Parish
         */
-        myURIMatcher.addURI(authority, CatolicosContract.PATH_PARISH   + "/*"   ,PARISH);
-        myURIMatcher.addURI(authority, CatolicosContract.PATH_PARISH   + "/*/*" ,PARISH_WITH_LOCATION);
+        myURIMatcher.addURI(authority, CatolicosContract.PATH_PARISH,PARISH);
+        myURIMatcher.addURI(authority, CatolicosContract.PATH_PARISH +"/*",PARISH_WITH_NAME);
+        myURIMatcher.addURI(authority, CatolicosContract.PATH_PARISH +"/*/*",PARISH_WITH_LOCATION);
 
         /*
         As possiveis formaçções de uma URi para acessar a table Actitvity
         */
-        myURIMatcher.addURI(authority, CatolicosContract.PATH_ACTIVITY + "/*"   ,ACTIVITY_WITH_PARISH);
-        myURIMatcher.addURI(authority, CatolicosContract.PATH_ACTIVITY + "/*/*" ,ACTIVITY_WITH_PARISH_DAY);
+        myURIMatcher.addURI(authority, CatolicosContract.PATH_ACTIVITY, ACTIVITY);
+        myURIMatcher.addURI(authority, CatolicosContract.PATH_ACTIVITY + "/*", ACTIVITY_WITH_PARISH);
+        myURIMatcher.addURI(authority, CatolicosContract.PATH_ACTIVITY +"/*/*", ACTIVITY_WITH_PARISH_DAY);
 
         /*
         todo Colocar mais matchs para comparar quando entrar
