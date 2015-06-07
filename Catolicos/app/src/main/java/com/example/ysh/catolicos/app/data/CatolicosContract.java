@@ -6,8 +6,8 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 import android.text.format.Time;
 
-/**
- * Created by YSH on 27/05/2015.
+/*
+  Created by YSH on 27/05/2015.
  */
 public class CatolicosContract {
 
@@ -77,10 +77,26 @@ public class CatolicosContract {
         public static final String COLUMN_LONGETUDE    = "longitude";
 
         public static Uri buildParishUri() {
-            Uri myURIParish = CONTENT_URI;
+            Uri myURIParish;
+            myURIParish = CONTENT_URI;
             return myURIParish;
         }
 
+        public static Uri build_ParishWithNameURi(String arg1){
+            return CONTENT_URI
+                    .buildUpon()
+                    .appendPath(arg1)
+                    .build();
+        }
+
+
+        public static Uri build_ParishWithLocationURi(String arg1, String arg2){
+            return CONTENT_URI
+                    .buildUpon()
+                    .appendPath(arg1)
+                    .appendPath(arg2)
+                    .build();
+        }
     }
 
     /*
@@ -99,7 +115,7 @@ public class CatolicosContract {
         */
         public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_ACTIVITY;
 
-        public static final String TABLE_NAME           = "ParishActivity";
+        public static final String TABLE_NAME           = "Activity";
         public static final String COLUMN_PAR_KEY       = "id_Par";
         public static final String COLUMN_ID_ATIVIDADE  = "atividade";
         public static final String COLUMN_DIA           = "dia";
@@ -107,51 +123,57 @@ public class CatolicosContract {
         public static final String COLUMN_HORARIO       = "horario";
 
         public static Uri buildActivityUri() {
-            Uri myURIActivit = CONTENT_URI;
-            return myURIActivit;
+            return CONTENT_URI;
         }
 
         /*
            resulte is all activities of parish
         */
-        public static Uri build_ActivityParish(String Parish) {
-            Uri myURIActivity = CONTENT_URI.buildUpon().appendPath(Parish).build();
-            return myURIActivity;
+        public static Uri build_ActivityParish(String arg1) {
+            return CONTENT_URI
+                    .buildUpon()
+                    .appendPath(arg1)
+                    .build();
         }
 
         /*
             resulte is all activities of parish in a weeak day
         */
-        public static Uri build_ActivityParishWithWeekDay(String Parish, String day) {
-            Uri myURIActivitParishWithWeekDay = CONTENT_URI.buildUpon()
-                    .appendPath(Parish)
-                    .appendQueryParameter(COLUMN_PAR_KEY, Parish)
-                    .appendQueryParameter(COLUMN_DIA, day).build();
-            return myURIActivitParishWithWeekDay;
+        public static Uri build_ActivityParishWithWeekDay(String arg1, String arg2) {
+            return CONTENT_URI
+                    .buildUpon()
+                    .appendPath(arg1)
+                    .appendPath(arg2)
+                    .build();
         }
 
         /*
             Return a parish name of my URi
-         */
+        */
         public static String getParishFromUri(Uri uri) {
             return uri.getPathSegments().get(1);
         }
 
         /*
             Return a Day of my URi
-         */
+        */
         public static String getDayFromUri(Uri uri) {
             return uri.getPathSegments().get(2);
         }
 
+        /*
+            Return the namo of parish
+        */
         public static String getParishNameFromURi(Uri uri){
             return uri.getPathSegments().get(1);
         }
 
+        /*
+            Return a Day of URi
+        */
         public static String getDayWeedFromURi(Uri uri){
             return uri.getPathSegments().get(2);
         }
-
     }
 
 }

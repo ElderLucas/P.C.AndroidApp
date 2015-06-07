@@ -1,6 +1,7 @@
 package com.example.ysh.catolicos.app.data;
 
 import android.annotation.TargetApi;
+import android.app.SearchManager;
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
@@ -23,15 +24,16 @@ public class CatolicosProvider extends ContentProvider {
 
 
     /*
-        O Motivo pelo qual se faz a consulta com numero maiores que dezena, é para agilizar a identificação
+        O Motivo pelo qual se faz a consulta com numero maiores que dezena, e para agilizar a identificacao
         da ordem da URi que esta entrado.
      */
-    static final int ACTIVITY                   = 100; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/ACTIVITY
-    static final int ACTIVITY_WITH_PARISH       = 101; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/PARISH_ACTIVITY/[ID_PAROQUIA QUERY]/[DAY QUERY]
-    static final int ACTIVITY_WITH_PARISH_DAY   = 102; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/PARISH_ACTIVITY/[ID_PAROQUIA QUERY]/[DAY QUERY]
+    static final int ACTIVITY                   = 100; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/ACTIVITY/
+    static final int ACTIVITY_WITH_PARISH       = 101; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/PARISH_ACTIVITY/[ARG1]
+    static final int ACTIVITY_WITH_PARISH_DAY   = 102; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/PARISH_ACTIVITY/[ARG1]/[ARG2]
 
-    static final int PARISH                     = 300; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/PARISH
-    static final int PARISH_WITH_LOCATION       = 301; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/PARISH
+    static final int PARISH                     = 300; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/PARISH/
+    static final int PARISH_WITH_NAME           = 301; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/PARISH/[ARG1]
+    static final int PARISH_WITH_LOCATION       = 302; //CONTENT://COM.EXAMPLE.YSH.CATOLICOS.APP/PARISH/[ARG1]/[ARG2]
 
 
     /*
@@ -92,7 +94,7 @@ public class CatolicosProvider extends ContentProvider {
     */
     private Cursor getActivityWithParishByPAR_KEY(Uri uri, String[] projection, String sortOrder){
         /*
-        Aqui pode-se fazer uma condicional para determinar se os argumentos estão dentro do esperado
+        Aqui pode-se fazer uma condicional para determinar se os argumentos estao dentro do esperado
         */
         String Parish = CatolicosContract.ActivityEntry.getParishNameFromURi(uri);
         String[] selectionArgs = new String[]{Parish};
@@ -116,7 +118,7 @@ public class CatolicosProvider extends ContentProvider {
         String Day = CatolicosContract.ActivityEntry.getDayFromUri(uri);
 
         /*
-        Aqui pode-se fazer uma condicional para determinar se os argumentos estão dentro do esperado
+            Aqui pode-se fazer uma condicional para determinar se os argumentos estao dentro do esperado
         */
         String[] selectionArgs = new String[]{Parish, Day};
         String selection = sActivityByPARKEYAndDaySelection;
@@ -163,7 +165,7 @@ public class CatolicosProvider extends ContentProvider {
         // 1) The code passed into the constructor represents the code to return for the root
         // URI.  It's common to use NO_MATCH as the code for this case. Add the constructor below.
         // -----------------------------------------------------------------------------------------
-        //Faz-se isso prq não queremos que compare com nada que não seja por nós definido.
+        //Faz-se isso prq nao queremos que compare com nada que nao seja por nos definido.
         final UriMatcher myURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
         // 2) Use the addURI function to match each of the types.  Use the constants from
@@ -174,27 +176,29 @@ public class CatolicosProvider extends ContentProvider {
         ////////////////////////////////////////////////////////////////////////////////////////////
         //                           |---------------------------------------------------------| "com.example.android.sunshine.app"
         //                           |                              |--------------------------| "weather"
-        //                           |                              |                       |--| Esse é o código que será retornado qndo chegar uma URI desse tipo.
+        //                           |                              |                       |--| Esse eh o codigo que sera retornado qndo chegar uma URI desse tipo.
         //                           |                              |                       |
         //                   |-- Authority -| |-------- Path -------------| |--Code--|
         //myURIMatcher.addURI(authority,      WeatherContract.PATH_WEATHER,   PARISH);
 
         /*
-            É Necessário somente as duas comparações, porque ou eu pesquiso a paróquia ou a atividade de uma paróquia
+            eh Necessario somente as duas comparacoes, porque ou eu pesquiso a paroquia ou a atividade de uma paroquia
         */
 
 
         /*
-        As possiveis formaçções de uma URi para acessar a table Parish
+        As possiveis formacoes de uma URi para acessar a table Parish
         */
-        myURIMatcher.addURI(authority, CatolicosContract.PATH_PARISH   + "/*"   ,PARISH);
-        myURIMatcher.addURI(authority, CatolicosContract.PATH_PARISH   + "/*/*" ,PARISH_WITH_LOCATION);
+        myURIMatcher.addURI(authority, CatolicosContract.PATH_PARISH,PARISH);
+        myURIMatcher.addURI(authority, CatolicosContract.PATH_PARISH +"/*",PARISH_WITH_NAME);
+        myURIMatcher.addURI(authority, CatolicosContract.PATH_PARISH +"/*/*",PARISH_WITH_LOCATION);
 
         /*
-        As possiveis formaçções de uma URi para acessar a table Actitvity
+        As possiveis formacoes de uma URi para acessar a table Actitvity
         */
-        myURIMatcher.addURI(authority, CatolicosContract.PATH_ACTIVITY + "/*"   ,ACTIVITY_WITH_PARISH);
-        myURIMatcher.addURI(authority, CatolicosContract.PATH_ACTIVITY + "/*/*" ,ACTIVITY_WITH_PARISH_DAY);
+        myURIMatcher.addURI(authority, CatolicosContract.PATH_ACTIVITY, ACTIVITY);
+        myURIMatcher.addURI(authority, CatolicosContract.PATH_ACTIVITY + "/*", ACTIVITY_WITH_PARISH);
+        myURIMatcher.addURI(authority, CatolicosContract.PATH_ACTIVITY +"/*/*", ACTIVITY_WITH_PARISH_DAY);
 
         /*
         todo Colocar mais matchs para comparar quando entrar
@@ -208,7 +212,7 @@ public class CatolicosProvider extends ContentProvider {
     @Override
     public boolean onCreate() {
         /*
-        DB HELPER Contem funções que ajudarão na manipulação do DB
+        DB HELPER Contem funoees que ajudarao na manipulacao do DB
         Create a helper object to create, open, and/or manage a database.
         */
         mOpenHelper = new CatolicosDbHelper(getContext());    // getContext () -> PAssa como parametro o contexo da VIEW onde estamos rodando
@@ -221,14 +225,24 @@ public class CatolicosProvider extends ContentProvider {
         final int match = sUriMatcher.match(uri);
 
         switch (match) {
+            case ACTIVITY:
+                return CatolicosContract.ActivityEntry.CONTENT_TYPE;    //  containing a Cursor of zero or more items.
+
             case ACTIVITY_WITH_PARISH_DAY:
-                return CatolicosContract.ActivityEntry.CONTENT_TYPE; // containing a Cursor of zero or more items.
+                return CatolicosContract.ActivityEntry.CONTENT_TYPE;    //  containing a Cursor of zero or more items.
+
             case ACTIVITY_WITH_PARISH:
-                return CatolicosContract.ActivityEntry.CONTENT_TYPE; // containing a Cursor of zero or more items.
+                return CatolicosContract.ActivityEntry.CONTENT_TYPE;    //  containing a Cursor of zero or more items.
+
             case PARISH:
-                return CatolicosContract.ParishEntry.CONTENT_TYPE; //Aqui retorna uma seleção de intens....
+                return CatolicosContract.ParishEntry.CONTENT_TYPE;      //  Aqui retorna uma selecao de intens....
+
+            case PARISH_WITH_NAME:
+                return CatolicosContract.ParishEntry.CONTENT_ITEM_TYPE; //  Aqui retorna um item
+
             case PARISH_WITH_LOCATION:
-                return CatolicosContract.ParishEntry.CONTENT_ITEM_TYPE; //Aqui retorna uma seleção de intens....
+                return CatolicosContract.ParishEntry.CONTENT_ITEM_TYPE; //  Aqui retorna um item
+
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -242,7 +256,6 @@ public class CatolicosProvider extends ContentProvider {
         Cursor retCursor;
 
         switch (sUriMatcher.match(uri)) {
-
             /*
                 Table Activity+Parish By ParKey
              */
