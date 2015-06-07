@@ -115,7 +115,7 @@ public class CatolicosContract {
         */
         public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_ACTIVITY;
 
-        public static final String TABLE_NAME           = "ParishActivity";
+        public static final String TABLE_NAME           = "Activity";
         public static final String COLUMN_PAR_KEY       = "id_Par";
         public static final String COLUMN_ID_ATIVIDADE  = "atividade";
         public static final String COLUMN_DIA           = "dia";
@@ -161,14 +161,19 @@ public class CatolicosContract {
             return uri.getPathSegments().get(2);
         }
 
+        /*
+            Return the namo of parish
+        */
         public static String getParishNameFromURi(Uri uri){
             return uri.getPathSegments().get(1);
         }
 
+        /*
+            Return a Day of URi
+        */
         public static String getDayWeedFromURi(Uri uri){
             return uri.getPathSegments().get(2);
         }
-
     }
 
 }

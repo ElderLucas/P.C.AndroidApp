@@ -7,15 +7,29 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Registrando o Content Provider -->
+        <!-- android:authorities="com.example.ysh.catolicos.app" -->
+        <provider
+            android:authorities="com.example.ysh.catolicos.app"
+            android:label="@string/content_authority"
+            android:name=".data.CatolicosProvider"
+            android:exported="false"
+            android:syncable="true"/>
+
+
+
     </application>
+
+
 
 </manifest>

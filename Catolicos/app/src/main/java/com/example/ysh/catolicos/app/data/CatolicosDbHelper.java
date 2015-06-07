@@ -7,14 +7,14 @@ import android.util.Log;
 import com.example.ysh.catolicos.app.data.CatolicosContract.ActivityEntry;
 import com.example.ysh.catolicos.app.data.CatolicosContract.ParishEntry;
 
-/**
+/*
  * Created by YSH on 27/05/2015.
  */
 public class CatolicosDbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
     private static final int DATABASE_VERSION = 2;
 
-    static final String DATABASE_NAME = "parishActivity.db";
+    static final String DATABASE_NAME = "Catolicos.db";
 
     public CatolicosDbHelper(Context context)
     {
@@ -34,28 +34,28 @@ public class CatolicosDbHelper extends SQLiteOpenHelper {
                 ParishEntry.COLUMN_NOME         + " TEXT NOT NULL, " +
                 ParishEntry.COLUMN_REGPASTORAL  + " TEXT NOT NULL, " +
                 ParishEntry.COLUMN_PHONE        + " TEXT NOT NULL, " +
-                ParishEntry.COLUMN_EMAIL        + " TEXT NOT NULL  " +
-                ParishEntry.COLUMN_WEBPAGE      + " TEXT NOT NULL  " +
-                ParishEntry.COLUMN_ADDRESS      + " TEXT NOT NULL  " +
-                ParishEntry.COLUMN_POSTALCODE   + " TEXT NOT NULL  " +
-                ParishEntry.COLUMN_CITY         + " TEXT NOT NULL  " +
-                ParishEntry.COLUMN_LATITUDE     + " TEXT NOT NULL  " +
+                ParishEntry.COLUMN_EMAIL        + " TEXT NOT NULL, " +
+                ParishEntry.COLUMN_WEBPAGE      + " TEXT NOT NULL, " +
+                ParishEntry.COLUMN_ADDRESS      + " TEXT NOT NULL, " +
+                ParishEntry.COLUMN_POSTALCODE   + " TEXT NOT NULL, " +
+                ParishEntry.COLUMN_CITY         + " TEXT NOT NULL, " +
+                ParishEntry.COLUMN_LATITUDE     + " TEXT NOT NULL, " +
                 ParishEntry.COLUMN_LONGETUDE    + " TEXT NOT NULL  " + " );";
 
 
         final String SQL_CREATE_ACTIVITY_TABLE =
 
                 "CREATE TABLE " +
-                ActivityEntry.TABLE_NAME          + " (" +
-                ActivityEntry._ID                 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                ActivityEntry.COLUMN_PAR_KEY      + " TEXT NOT NULL  " +            // the ID of the location entry associated with this weather data
-                ActivityEntry.COLUMN_ID_ATIVIDADE + " TEXT NOT NULL  " +
-                ActivityEntry.COLUMN_DIA          + " TEXT NOT NULL  " +
-                ActivityEntry.COLUMN_DIA_SEMANA   + " TEXT NOT NULL  " +
-                ActivityEntry.COLUMN_HORARIO      + " TEXT NOT NULL  " +
+                ActivityEntry.TABLE_NAME          + " (" +                                          //PAra que seja possivel usar o cursor adapter juntamente com o listview widget, é necessário essa coluna
+                ActivityEntry._ID                 + " INTEGER PRIMARY KEY AUTOINCREMENT," +         //The Cursor must include a column named "_id" or this class will not work [http://developer.android.com/reference]
+                ActivityEntry.COLUMN_PAR_KEY      + " TEXT NOT NULL,  " +
+                ActivityEntry.COLUMN_ID_ATIVIDADE + " TEXT NOT NULL,  " +
+                ActivityEntry.COLUMN_DIA          + " TEXT NOT NULL,  " +
+                ActivityEntry.COLUMN_DIA_SEMANA   + " TEXT NOT NULL,  " +
+                ActivityEntry.COLUMN_HORARIO      + " TEXT NOT NULL,  " +
 
                 // Set up the Parish_id column as a foreign key to location table.
-                " FOREIGN KEY (" + ActivityEntry.COLUMN_PAR_KEY + ") REFERENCES " + ParishEntry.TABLE_NAME + " (" + ParishEntry.COLUMN_ID_PAROQUIA + ");";
+                " FOREIGN KEY (" + ActivityEntry.COLUMN_PAR_KEY + ") REFERENCES " + ParishEntry.TABLE_NAME + " (" + ParishEntry.COLUMN_ID_PAROQUIA + "));";
 
                 // To assure the application have just one weather entry per day
                 // per location, it's created a UNIQUE constraint with REPLACE strategy
