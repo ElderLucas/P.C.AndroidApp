@@ -20,6 +20,11 @@ public class tab_paroquias extends Fragment{
     //Criando um adapter
     ArrayAdapter<String> mAdapter;
 
+
+    /*
+    Para criar uma Circular View, usar o post
+    https://github.com/lopspower/CircularImageView
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -42,7 +47,7 @@ public class tab_paroquias extends Fragment{
         mAdapter = new ArrayAdapter<String>(
                 getActivity(), // The current context (this activity)
                 R.layout.list_item_paroquias, // The name of the layout ID.
-                R.id.list_item_textview_parquias, // The ID of the textview to populate.
+                R.id.tabParish_list_item_ParishName, // The ID of the textview to populate.
                 weekForecast);
 
         View v =inflater.inflate(R.layout.paroquias,container,false);

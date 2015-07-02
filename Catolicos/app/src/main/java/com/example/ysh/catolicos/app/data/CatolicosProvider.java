@@ -96,7 +96,7 @@ public class CatolicosProvider extends ContentProvider {
         /*
         Aqui pode-se fazer uma condicional para determinar se os argumentos estao dentro do esperado
         */
-        String Parish = CatolicosContract.ActivityEntry.getParishNameFromURi(uri);
+        String Parish = CatolicosContract.ActivityEntry.getParishFromUri(uri);
         String[] selectionArgs = new String[]{Parish};
         String selection = sActivityByPARKEYSelection;
 
@@ -114,7 +114,7 @@ public class CatolicosProvider extends ContentProvider {
 
     private Cursor getActivityWithParishByPAR_KEYandDAY(Uri uri, String[] projection, String sortOrder){
 
-        String Parish = CatolicosContract.ActivityEntry.getParishNameFromURi(uri);
+        String Parish = CatolicosContract.ActivityEntry.getParishFromUri(uri);
         String Day = CatolicosContract.ActivityEntry.getDayFromUri(uri);
 
         /*
@@ -309,7 +309,7 @@ public class CatolicosProvider extends ContentProvider {
             case PARISH: {
                 long _id = db.insert(CatolicosContract.ParishEntry.TABLE_NAME, null, values);
                 if ( _id > 0 )
-                    returnUri = CatolicosContract.ParishEntry.buildParishUri();
+                    returnUri = CatolicosContract.ParishEntry.buildParishUri(_id);
                 else
                     throw new android.database.SQLException("Failed to insert row into " + uri);
                 break;
@@ -318,7 +318,7 @@ public class CatolicosProvider extends ContentProvider {
             case  ACTIVITY: {
                 long _id = db.insert(CatolicosContract.ActivityEntry.TABLE_NAME, null,values);
                 if ( _id > 0 )
-                    returnUri = CatolicosContract.ActivityEntry.buildActivityUri();
+                    returnUri = CatolicosContract.ActivityEntry.buildActivityUri(_id);
                 else
                     throw new android.database.SQLException("Failed to insert row into " + uri);
                 break;
