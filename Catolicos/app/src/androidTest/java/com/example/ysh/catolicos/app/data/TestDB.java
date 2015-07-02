@@ -90,7 +90,10 @@ public class TestDB  extends AndroidTestCase {
     }
 
 
-    public void testLocationTable() {
+    /*
+        Teste das tabelas de Atividades e das Paroquias
+    */
+    public void testActivityAndParishTables() {
 
         SQLiteDatabase myTestDB = new CatolicosDbHelper(mContext).getWritableDatabase();
 
@@ -115,10 +118,9 @@ public class TestDB  extends AndroidTestCase {
         assertFalse("Error: More than one record returned from location query", myTestDBCursor.moveToNext());
 
         /*
-        New Tests.... Parish Table
-        Operacoes com a tabela ParishTable
+            New Tests.... PARISH Table Operacoes com a tabela ParishTable
         */
-        ContentValues myParishWritebleData = TestUtilities.createParishValues();
+        ContentValues myParishWritebleData = TestUtilities.createParishValues("Saodimas");
 
         long ParishCursorRowID = myTestDB.insert(CatolicosContract.ParishEntry.TABLE_NAME, null, myParishWritebleData);
 

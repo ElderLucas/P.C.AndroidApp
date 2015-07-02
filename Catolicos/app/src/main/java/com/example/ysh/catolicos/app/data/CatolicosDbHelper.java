@@ -30,7 +30,8 @@ public class CatolicosDbHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_PARISH_TABLE =
                 "CREATE TABLE " +
                 ParishEntry.TABLE_NAME + " (" +
-                ParishEntry.COLUMN_ID_PAROQUIA  + " TEXT UNIQUE NOT NULL, " +        // Uniquely identified each rows/records in a database table
+                ParishEntry._ID                 + " INTEGER PRIMARY KEY," +
+                ParishEntry.COLUMN_ID_PAROQUIA  + " TEXT UNIQUE NOT NULL, " +                       // Uniquely identified each rows/records in a database table
                 ParishEntry.COLUMN_NOME         + " TEXT NOT NULL, " +
                 ParishEntry.COLUMN_REGPASTORAL  + " TEXT NOT NULL, " +
                 ParishEntry.COLUMN_PHONE        + " TEXT NOT NULL, " +
@@ -46,7 +47,7 @@ public class CatolicosDbHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_ACTIVITY_TABLE =
 
                 "CREATE TABLE " +
-                ActivityEntry.TABLE_NAME          + " (" +                                          //PAra que seja possivel usar o cursor adapter juntamente com o listview widget, é necessário essa coluna
+                ActivityEntry.TABLE_NAME          + " (" +                                          //PAra que seja possivel usar o cursor adapter juntamente com o listview widget, eh necessario essa coluna
                 ActivityEntry._ID                 + " INTEGER PRIMARY KEY AUTOINCREMENT," +         //The Cursor must include a column named "_id" or this class will not work [http://developer.android.com/reference]
                 ActivityEntry.COLUMN_PAR_KEY      + " TEXT NOT NULL,  " +
                 ActivityEntry.COLUMN_ID_ATIVIDADE + " TEXT NOT NULL,  " +
@@ -70,7 +71,7 @@ public class CatolicosDbHelper extends SQLiteOpenHelper {
     }
 
 
-    //Se eu mudar a versao da minha database, esse método eh chamado.
+    //Se eu mudar a versao da minha database, esse metodo eh chamado.
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         // This database is only a cache for online data, so its upgrade policy is
@@ -81,7 +82,7 @@ public class CatolicosDbHelper extends SQLiteOpenHelper {
         // should be your top priority before modifying this method.
 
         //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ParishEntry.TABLE_NAME);  //
-        //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ParishActivityEntry.TABLE_NAME);   // Deleta os dois DB
+        //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ParishActivityEntry.TABLE_NAME);   // as duas tabelas
         //onCreate(sqLiteDatabase); //Cria o banco Novamente.
     }
 

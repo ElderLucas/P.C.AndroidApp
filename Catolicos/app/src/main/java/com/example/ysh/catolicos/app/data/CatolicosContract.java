@@ -76,10 +76,14 @@ public class CatolicosContract {
         public static final String COLUMN_LATITUDE     = "latitude";
         public static final String COLUMN_LONGETUDE    = "longitude";
 
-        public static Uri buildParishUri() {
-            Uri myURIParish;
-            myURIParish = CONTENT_URI;
-            return myURIParish;
+        public static Uri buildParishUri(long arg1) {
+
+            String _id = String.valueOf(arg1);
+
+            return CONTENT_URI
+                    .buildUpon()
+                    .appendPath(_id)
+                    .build();
         }
 
         public static Uri build_ParishWithNameURi(String arg1){
@@ -122,8 +126,14 @@ public class CatolicosContract {
         public static final String COLUMN_DIA_SEMANA    = "dia_semana";
         public static final String COLUMN_HORARIO       = "horario";
 
-        public static Uri buildActivityUri() {
-            return CONTENT_URI;
+        public static Uri buildActivityUri(long arg1) {
+
+            String _id = String.valueOf(arg1);
+
+            return CONTENT_URI
+                    .buildUpon()
+                    .appendPath(_id)
+                    .build();
         }
 
         /*
@@ -161,19 +171,6 @@ public class CatolicosContract {
             return uri.getPathSegments().get(2);
         }
 
-        /*
-            Return the namo of parish
-        */
-        public static String getParishNameFromURi(Uri uri){
-            return uri.getPathSegments().get(1);
-        }
-
-        /*
-            Return a Day of URi
-        */
-        public static String getDayWeedFromURi(Uri uri){
-            return uri.getPathSegments().get(2);
-        }
     }
 
 }
