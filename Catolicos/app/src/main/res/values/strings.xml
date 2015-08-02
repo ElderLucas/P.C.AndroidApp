@@ -34,4 +34,23 @@
     <!-- Strings related to Notification preference -->
     <string name="pref_last_notification">last_notification</string>
 
+
+    <!-- Formatação para facilitar a vida durante o desenvolvimento
+    <string name="Domingo">FirstDayOfGregorianWeek</string>
+    <string name="Segunda-Feria">SecondDayOfGregorianWeek</string>
+    <string name="Terça-Feira">ThirdDayOfGregorianWeek</string>
+    <string name="Quarta-Feira">ForthDayOfGregorianWeek</string>
+    <string name="Quinta-Feira">FifthOfGregorianWeek</string>
+    <string name="Sexta-Feira">SixthOfGregorianWeek</string>
+    <string name="Sábado">SeventhOfGregorianWeek</string> -->
+
+    <string name="domingo">FirstDayRaw</string>
+    <string name="segunda">SecondDayRaw</string>
+    <string name="terca">ThirdDayRaw</string>
+    <string name="quarta">ForthDayRaw</string>
+    <string name="quinta">FifthDayRaw</string>
+    <string name="sexta">SixthDayRaw</string>
+    <string name="sabado">SeventhDayRaw</string>
+
+
 </resources>

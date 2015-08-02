@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical"
     android:minHeight="?android:attr/listPreferredItemHeight"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="50dp"
@@ -24,18 +24,27 @@
         android:layout_weight="7"
         android:orientation="vertical">
 
+        <!--Paroquia Name TextView-->
         <TextView
             android:id="@+id/tabParish_list_item_ParishName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:textSize="15sp"/>
+            android:layout_weight="3"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/colorFirstText"
+            android:textSize="18sp"/>
 
+        <!--Address TextView-->
         <TextView
             android:id="@+id/tabParish_list_item_AddressParish"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-light"
+            android:paddingTop="1dp"
+            android:textSize="12dp"
+
+            android:textColor="@color/colorAddressText"
             android:textAppearance="?android:textAppearanceSmall"/>
     </LinearLayout>
 
@@ -47,19 +56,15 @@
         android:layout_gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tabParish_list_item_todayactivity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="sans-serif"
-            android:text="hoje" />
+
 
         <!-- Icones de Atividades dos dia -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="5"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="5dp"
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal">
 
@@ -92,6 +97,17 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/tabParish_list_item_todayactivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/colorSecText"
+            android:textSize="9dp"
+            android:text="Atividades de hoje"
+            android:textStyle="italic"
+            android:textAlignment="center"
+            android:gravity="center" />
 
 
     </LinearLayout>

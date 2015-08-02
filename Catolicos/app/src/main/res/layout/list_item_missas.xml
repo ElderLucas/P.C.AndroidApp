@@ -8,10 +8,14 @@
 
     <TextView
         android:id="@+id/list_item_textview_missa"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed"
-        android:textSize="20sp"
+        android:layout_weight="1"
+        android:fontFamily="sans-serif-light"
+        android:textSize="18sp"
+        android:textColor="@color/colorFirstText"
+        android:text="Av. São João, n°300, S.J. Campos"
+        android:textAppearance="?android:textAppearanceSmall"
     />
 
 </LinearLayout>

@@ -101,6 +101,12 @@ public class CatolicosContract {
                     .appendPath(arg2)
                     .build();
         }
+
+        public static Uri buildUri() {
+            return CONTENT_URI
+                    .buildUpon()
+                    .build();
+        }
     }
 
     /*
@@ -154,6 +160,13 @@ public class CatolicosContract {
                     .buildUpon()
                     .appendPath(arg1)
                     .appendPath(arg2)
+                    .build();
+        }
+
+
+        public static Uri buildUri() {
+            return CONTENT_URI
+                    .buildUpon()
                     .build();
         }
 

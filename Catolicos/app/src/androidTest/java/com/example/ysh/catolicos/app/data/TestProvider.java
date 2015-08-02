@@ -187,6 +187,7 @@ public class TestProvider extends AndroidTestCase {
         // Did our content observer get called?  If this fails, your insert location
         // isn't calling getContext().getContentResolver().notifyChange(uri, null);
         tco.waitForNotificationOrFail();
+        tco.waitForNotificationOrFail();
 
         mContext.getContentResolver().unregisterContentObserver(tco);
 

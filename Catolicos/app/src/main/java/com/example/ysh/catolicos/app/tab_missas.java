@@ -30,32 +30,32 @@ public class tab_missas extends Fragment implements LoaderManager.LoaderCallback
     private int mPosition = ListView.INVALID_POSITION;
     private boolean mUseTodayLayout;
 
-    //Criando um adapter
-    ArrayAdapter<String> mAdapter;
+                //Criando um adapter
+                ArrayAdapter<String> mAdapter;
 
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        String[] data = {
-                "Catedral - 19h00 - Sexta Feira",
-                "NS Aparecida - 19h00 - Sexta Feira",
-                "Catedral - 19h00 - Sexta Feira",
-                "Sagrada - 19h00 - Sexta Feira",
-                "Santana - 19h00 - Sexta Feira",
-                "Jaguary - 19h00 - Sexta Feira",
-                "Jacarei - 19h00 - Sexta Feira",
-                "S j D Bosco - 19h00 - Sexta Feira",
-                "NS Fatima - 19h00 - Sexta Feira",
-                "Missa - 19h00 - Sexta Feira",
-                "Missa - 19h00 - Sexta Feira"
+            String[] data = {
+                    "Catedral - 19h00 - Sexta Feira",
+                    "NS Aparecida - 19h00 - Sexta Feira",
+                    "Catedral - 19h00 - Sexta Feira",
+                    "Sagrada - 19h00 - Sexta Feira",
+                    "Santana - 19h00 - Sexta Feira",
+                    "Jaguary - 19h00 - Sexta Feira",
+                    "Jacarei - 19h00 - Sexta Feira",
+                    "S j D Bosco - 19h00 - Sexta Feira",
+                    "NS Fatima - 19h00 - Sexta Feira",
+                    "Missa - 19h00 - Sexta Feira",
+                    "Missa - 19h00 - Sexta Feira"
 
-        };
+            };
 
-        List<String> weekForecast = new ArrayList<String>(Arrays.asList(data));
+            List<String> weekForecast = new ArrayList<String>(Arrays.asList(data));
 
-        mAdapter = new ArrayAdapter<String>(
-                getActivity(), // The current context (this activity)
+            mAdapter = new ArrayAdapter<String>(
+                    getActivity(), // The current context (this activity)
                 R.layout.list_item_missas, // The name of the layout ID.
                 R.id.list_item_textview_missa, // The ID of the textview to populate.
                 weekForecast);

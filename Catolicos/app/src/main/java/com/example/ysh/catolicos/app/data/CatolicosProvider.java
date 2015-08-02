@@ -349,7 +349,6 @@ public class CatolicosProvider extends ContentProvider {
         */
         if (null == selection )
             selection = "1";
-
         switch (match) {
             case PARISH: {
                 NumberOfRowAffected = db.delete(CatolicosContract.ParishEntry.TABLE_NAME, selection,selectionArgs);
@@ -364,8 +363,12 @@ public class CatolicosProvider extends ContentProvider {
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
 
+        /*
+            todo : Nesse ponto, verificar se eh realmente necessario chamar o notify. Um erro esta ocorrendo no cursor.
+        */
+
         if(NumberOfRowAffected != 0) {
-            getContext().getContentResolver().notifyChange(uri, null);
+            //getContext().getContentResolver().notifyChange(uri, null);
         }
 
         db.close();
@@ -428,10 +431,11 @@ public class CatolicosProvider extends ContentProvider {
     public int bulkInsert(Uri uri, ContentValues[] values) {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         final int match = sUriMatcher.match(uri);
+        int returnCount = 0;
         switch (match) {
             case ACTIVITY:
                 db.beginTransaction();
-                int returnCount = 0;
+
                 try {
                     for (ContentValues value : values) {
                         long _id = db.insert(CatolicosContract.ActivityEntry.TABLE_NAME, null, value);
@@ -445,6 +449,26 @@ public class CatolicosProvider extends ContentProvider {
                 }
                 getContext().getContentResolver().notifyChange(uri, null);
                 return returnCount;
+
+            /*
+                Bulk inserted to Parish data base
+             */
+            case PARISH: {
+                db.beginTransaction();
+                try {
+                    for (ContentValues value : values) {
+                        long _id = db.insert(CatolicosContract.ParishEntry.TABLE_NAME, null, value);
+                        if (_id != -1) {
+                            returnCount++;
+                        }
+                    }
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+                getContext().getContentResolver().notifyChange(uri, null);
+                return returnCount;
+            }
             default:
                 return super.bulkInsert(uri, values);
         }

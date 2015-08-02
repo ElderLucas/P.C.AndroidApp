@@ -3,7 +3,6 @@ package com.example.ysh.catolicos.app;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -67,7 +66,13 @@ public class MainActivity extends ActionBarActivity {
                 });
         tabs.setViewPager(pager);
 
+        //todo : [Gato] -- Acredito que esse não seja o melhor lugar para se chamar a inicialização do syncAdapter.
         CatolicosSyncAdapter.initializeSyncAdapter(this);
+
+        Utilities mydate = new Utilities();
+        mydate.myhour("14:00");
+
+
     }
 
     @Override

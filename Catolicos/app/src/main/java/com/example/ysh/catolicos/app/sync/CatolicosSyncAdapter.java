@@ -4,6 +4,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
@@ -21,11 +22,15 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 import android.text.Html;
 import android.util.Log;
 
 import com.example.ysh.catolicos.app.MainActivity;
 import com.example.ysh.catolicos.app.R;
+import com.example.ysh.catolicos.app.Utilities;
+import com.example.ysh.catolicos.app.data.CatolicosContract;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -75,6 +80,7 @@ public class CatolicosSyncAdapter extends AbstractThreadedSyncAdapter {
     private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
     private static final int PARISH_NOTIFICATION_ID = 3004;
 
+    public static Utilities myUtilities = new Utilities();
     // Global variables
     // Define a variable to contain a content resolver instance
     ContentResolver mContentResolver;
@@ -184,7 +190,7 @@ public class CatolicosSyncAdapter extends AbstractThreadedSyncAdapter {
 
             String mytext = stripHtml(parishJsonStr); //http://stackoverflow.com/questions/6502759/how-to-strip-or-escape-html-tags-in-android
 
-            getWeatheDataFromJson(mytext, ParishQuery);
+            getDataFromJson(mytext, ParishQuery);
 
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error ", e);
@@ -222,32 +228,167 @@ public class CatolicosSyncAdapter extends AbstractThreadedSyncAdapter {
      * Fortunately parsing is easy:  constructor takes the JSON string and converts it
      * into an Object hierarchy for us.
      */
-    private void getWeatheDataFromJson(String parishJsonStr, String locationSetting) throws JSONException {
+    public void getDataFromJson(String CatolicosJsonStr, String locationSetting) throws JSONException {
+
+
+        final String LOG_TAG = CatolicosSyncAdapter.class.getSimpleName() + " getDataFromJson";
+
+        final String OWM_PAROQUIA      = "Paroquia";
+        final String OWM_ACTIVITY_TYPE = "ActivityType";
+        final String OWM_ADDRESS       = "Address";
+        final String OWM_CITY          = "City";
+        final String OWM_REGPASTORAL   = "RegPastoral";
+        final String OWM_PHONE         = "Phone";
+        final String OWM_EMAIL         = "Email";
+        final String OWM_WEBPAGE       = "Webpage";
+        final String OWM_POSTALCODE    = "Postalcode";
+        final String OWM_DIASEMANA     = "Dia da Semana";
+
 
         try {
 
-            JSONArray jarray = new JSONArray(parishJsonStr);
-            Vector<ContentValues> cVVector = new Vector<ContentValues>(jarray.length());
+            JSONArray ParishJson = new JSONArray(CatolicosJsonStr);
 
-            for(int i = 0; i < jarray.length(); i++) {
-                JSONObject TodasParoquiasJSONOBJ = jarray.toJSONObject(jarray);
-                Log.d(LOG_TAG,"c");
-             }
+            /*
+                Vetor para salvar os dados que serao gravados na parish table
+            */
+            //Vector<ContentValues> cVVectorParish = new Vector<ContentValues>(ParishJson.length());
+            Vector<ContentValues> cVVectorParish = new Vector<ContentValues>();
+            Vector<ContentValues> cVVectorActivityDays = new Vector<ContentValues>();
+
+            for(int i = 0; i < ParishJson.length(); i++) {
+
+                JSONObject myObjJSON = ParishJson.getJSONObject(i);
+                //todo : Pede-se para utilizar um Iterable para retornar um iterator.
+                //todo : pode causar um fail caso ocorra um acesso concorrente ao mesmo
+                Iterator<String> iter = myObjJSON.keys();
+
+                while (iter.hasNext()) {
+                    String key = iter.next();
+
+                    try {
+                        JSONObject myDetails = myObjJSON.getJSONObject(key);
+
+                        String idParoquia   = key;
+
+                        String parishName   = myDetails.getString(OWM_PAROQUIA);
+                        String activityType = myDetails.getString(OWM_ACTIVITY_TYPE);
+                        String city         = myDetails.getString(OWM_CITY);
+                        String address      = myDetails.getString(OWM_ADDRESS);
+                        String regPastoral  = myDetails.getString(OWM_REGPASTORAL);
+                        String phone        = myDetails.getString(OWM_PHONE);
+                        String email        = myDetails.getString(OWM_EMAIL);
+                        String webpage      = myDetails.getString(OWM_WEBPAGE);
+                        String postalcode   = myDetails.getString(OWM_POSTALCODE);
+
+                        ContentValues ParishValues = new ContentValues();
+
+                        ParishValues.put(CatolicosContract.ParishEntry.COLUMN_ID_PAROQUIA   , idParoquia);
+                        ParishValues.put(CatolicosContract.ParishEntry.COLUMN_NOME          , parishName);
+                        ParishValues.put(CatolicosContract.ParishEntry.COLUMN_REGPASTORAL   , regPastoral);
+                        ParishValues.put(CatolicosContract.ParishEntry.COLUMN_PHONE         , phone);
+                        ParishValues.put(CatolicosContract.ParishEntry.COLUMN_EMAIL         , email);
+                        ParishValues.put(CatolicosContract.ParishEntry.COLUMN_WEBPAGE       , webpage);
+                        ParishValues.put(CatolicosContract.ParishEntry.COLUMN_ADDRESS       , address);
+                        ParishValues.put(CatolicosContract.ParishEntry.COLUMN_POSTALCODE    , postalcode);
+                        ParishValues.put(CatolicosContract.ParishEntry.COLUMN_CITY          , city);
+                        ParishValues.put(CatolicosContract.ParishEntry.COLUMN_LATITUDE      , "00.00");
+                        ParishValues.put(CatolicosContract.ParishEntry.COLUMN_LONGETUDE     , "00.00");
+
+                        cVVectorParish.add(ParishValues);
+
+                        /*
+                            Agora organizar os dados da activities day
+                        */
+                        JSONArray DiasDaSemanaJson = new JSONArray(myDetails.getString(OWM_DIASEMANA));
+
+                        //Vector<ContentValues> cVVectorActivityDays = new Vector<ContentValues>(DiasDaSemanaJson.length());
+
+
+                        for(int days = 0; days < DiasDaSemanaJson.length(); days++) {
+                            JSONObject myDaysObjJSON = DiasDaSemanaJson.getJSONObject(days);
+                            Iterator<String> days_iter = myDaysObjJSON.keys();
+
+                            /*
+                                recebe e separa os dias que sao necessarios para o preenchimento da minha string de gravacao no db
+                            */
+                            while (days_iter.hasNext()){
+                                String daykey = days_iter.next();
+                                try {
+                                    String hour = myDaysObjJSON.getString(daykey);
+                                    ContentValues ActivityDaysValues = new ContentValues();
+                                    ActivityDaysValues.put(CatolicosContract.ActivityEntry.COLUMN_PAR_KEY, idParoquia);
+                                    ActivityDaysValues.put(CatolicosContract.ActivityEntry.COLUMN_ID_ATIVIDADE, activityType);
+                                    /*
+                                    todo - fazer com que o dia entre em formato com acentos e retorne intendivel-- Day key eh o que deve ser corrigido
+                                    */
+                                    ActivityDaysValues.put(CatolicosContract.ActivityEntry.COLUMN_DIA,          myUtilities.Rawdayofweek(daykey)); //todo - **GATO* para pegar dado bruto do nome do dia da semana
+                                    ActivityDaysValues.put(CatolicosContract.ActivityEntry.COLUMN_DIA_SEMANA,   daykey);
+                                    ActivityDaysValues.put(CatolicosContract.ActivityEntry.COLUMN_HORARIO,      hour);
+
+                                    cVVectorActivityDays.add(ActivityDaysValues);
+
+                                }catch (JSONException e){
+                                    Log.e("DayJSON", "Vasio");
+                                }
+                            }
+                        }
+                        //todo : Aqui é o lugar em que eu preciso salvar no banco de dados.
+                        //todo : Após recebido todo o vetor, preenche o database e finaliza a inclusão dos dados.
+
+                    } catch (JSONException e) {
+
+                    }
+                }
+            }
+
+            //todo 1- gravar no database, os dados recebidos do servidor
+            //todo : São os vetores de contentvalues - cVVectorParish e cVVectorActivityDays
+            //todo 2- Deletar dados velhos do banco de dados
+            //todo 3- notificar que existem novos dados gravados no banco de dados.
+
+            // delete old data so we don't build up an endless history
+            //Deleta todos os dados da table Parish
+            getContext().getContentResolver().delete(CatolicosContract.ParishEntry.CONTENT_URI,null,null);
+
+            //Deleta tambem os dados da table de horarios das missas
+            getContext().getContentResolver().delete(CatolicosContract.ActivityEntry.CONTENT_URI,null,null);
+
+            /*
+            Escreve no db os dados das paroquias
+             */
+            if ( cVVectorParish.size() > 0 ) {
+                ContentValues[] cvArray = new ContentValues[cVVectorParish.size()];
+                cVVectorParish.toArray(cvArray);
+                getContext().getContentResolver().bulkInsert(CatolicosContract.ParishEntry.CONTENT_URI, cvArray);
+                //notifyWeather();
+            }
+
+            /*
+            Escreve no db os horarios das paroquias
+             */
+            if ( cVVectorActivityDays.size() > 0 ) {
+                ContentValues[] cvArray = new ContentValues[cVVectorActivityDays.size()];
+                cVVectorActivityDays.toArray(cvArray);
+                getContext().getContentResolver().bulkInsert(CatolicosContract.ActivityEntry.CONTENT_URI, cvArray);
+                //notifyWeather();
+            }
+
 
         } catch (JSONException e) {
-            Log.e(LOG_TAG, e.getMessage(), e);
+
             e.printStackTrace();
         }
 
-
+        Log.v("Details JSON ", "Sucess Sync Data");
     }
 
 
     /*
         Notificacao das informacoes do Catolicos
-     */
+    */
 
-    /*
+
     private void notifyWeather() {
         Context context = getContext();
         //checking the last update and notify if it' the first of the day
@@ -256,6 +397,7 @@ public class CatolicosSyncAdapter extends AbstractThreadedSyncAdapter {
         boolean displayNotifications = prefs.getBoolean(displayNotificationsKey,
                 Boolean.parseBoolean(context.getString(R.string.pref_enable_notifications_default)));
 
+        /*
         if ( displayNotifications ) {
 
             String lastNotificationKey = context.getString(R.string.pref_last_notification);
@@ -323,9 +465,9 @@ public class CatolicosSyncAdapter extends AbstractThreadedSyncAdapter {
                 }
                 cursor.close();
             }
-        }
+        }*/
     }
-    */
+
 
 
     /**
@@ -355,10 +497,9 @@ public class CatolicosSyncAdapter extends AbstractThreadedSyncAdapter {
      * @param context The context used to access the account service
      * @return a fake account.
      */
-    public static Account getSyncAccount(Context context) {
+    private static Account getSyncAccount(Context context) {
         // Get an instance of the Android account manager
-        AccountManager accountManager =
-                (AccountManager) context.getSystemService(Context.ACCOUNT_SERVICE);
+        AccountManager accountManager = (AccountManager) context.getSystemService(Context.ACCOUNT_SERVICE);
 
         // Create the account type and default account
         Account newAccount = new Account(
@@ -401,6 +542,8 @@ public class CatolicosSyncAdapter extends AbstractThreadedSyncAdapter {
          * Finally, let's do a sync to get things started
          */
         syncImmediately(context);
+
+        Log.d("onAccountCreated", "Passei por aqui - Ok");
     }
 
     public static void initializeSyncAdapter(Context context) {
