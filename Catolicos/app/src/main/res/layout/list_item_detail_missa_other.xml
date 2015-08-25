@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:orientation="horizontal">
+
+    <!-- Atividades dos dia -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
+
+        <ImageView
+            android:id="@+id/detailview_growcalice"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_weight="4"
+            android:padding="2dp"
+            android:layout_height="60dp"
+            android:src="@drawable/grow_calice"/>
+
+        <!-- Parish Name and Address -->
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="3"
+            android:paddingRight="20dp"
+            android:paddingTop="5dp"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_gravity="right"
+                android:id="@+id/detailview_itemother_dia_semana"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:text="Amanhã, Confissões"
+                android:textColor="@color/colorFirstText"
+                android:textSize="13dp"
+                android:paddingTop="2dp"
+                />
+
+            <TextView
+                android:layout_gravity="right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:text="Confissões"
+                android:textColor="@color/colorSecText"
+                android:textSize="11dp"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:paddingTop="2dp"
+                />
+
+            <TextView
+                android:layout_gravity="right"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:fontFamily="sans-serif-light"
+                android:text="Terço"
+                android:textSize="11dp"
+                android:textColor="@color/colorSecText"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:paddingTop="2dp"
+                />
+
+        </LinearLayout>
+
+
+
+        <!-- Parish Name and Address -->
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="3"
+            android:paddingTop="5dp"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+           <TextView
+                android:layout_gravity="left"
+                android:id="@+id/detailview_itemother_missas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:text="7:00, 9:00, 19:00"
+                android:textColor="@color/colorFirstText"
+                android:textSize="13dp"
+                android:paddingTop="2dp"/>
+
+            <TextView
+                android:layout_gravity="left"
+                android:id="@+id/detailview_itemother_confissoes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:text="7:00"
+                android:textColor="@color/colorSecText"
+                android:textSize="11dp"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:paddingTop="2dp"/>
+
+            <TextView
+                android:layout_gravity="left"
+                android:id="@+id/detailview_itemother_terco"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:fontFamily="sans-serif-light"
+                android:text="Não Haverá"
+                android:textColor="@color/colorSecText"
+                android:textSize="11dp"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:paddingTop="2dp"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

@@ -29,5 +29,6 @@ public class CatolicosSyncService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return sCatolicosSyncAdapter.getSyncAdapterBinder();
+
     }
 }

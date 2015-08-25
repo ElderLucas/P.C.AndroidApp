@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
 
-    <string name="app_name">Catolicos</string>
+    <string name="app_name">Católicos</string>
 
     <!-- Account type (for sync-adapter authenticator) -->
 
@@ -51,6 +51,13 @@
     <string name="quinta">FifthDayRaw</string>
     <string name="sexta">SixthDayRaw</string>
     <string name="sabado">SeventhDayRaw</string>
+
+    <string name="title_activity_detail">Detalhes</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <string name="Intent_detailview_paroquia">paroquia</string>
+    <string name="info_detail_paroquia">info paroquia</string>
+
 
 
 </resources>

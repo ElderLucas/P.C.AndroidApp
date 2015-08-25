@@ -3,6 +3,7 @@ package com.example.ysh.catolicos.app;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -13,7 +14,7 @@ import android.view.MenuItem;
 import com.example.ysh.catolicos.app.sync.CatolicosSyncAdapter;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements tab_paroquias.Callback{
 
     private Toolbar toolbar;
     ViewPager pager;
@@ -22,6 +23,13 @@ public class MainActivity extends ActionBarActivity {
     String Paroquias = new String();
     String Confissoes  = new String();
     String Missas  = new String();
+
+    /*
+        Indicara se eh tablet ou handset
+            se false - handset
+            se true  - tablet ou high size screen
+    */
+    boolean mTwoPane;
 
     /*
         Sync Adapter part
@@ -40,6 +48,7 @@ public class MainActivity extends ActionBarActivity {
         Criando um Acount Dummy
         */
         mAccount = CreateSyncAccount(this);
+        mTwoPane = false;
 
 
         Paroquias               = getResources().getString(R.string.Paroquias);
@@ -71,15 +80,18 @@ public class MainActivity extends ActionBarActivity {
 
         Utilities mydate = new Utilities();
         mydate.myhour("14:00");
-
-
-    }
+   }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -129,4 +141,37 @@ public class MainActivity extends ActionBarActivity {
 
         return newAccount;
     }
+
+
+
+    /*
+        Implementacao da interface para chamar a CallBack
+     */
+    @Override
+    public void onItemSelected(String date) {
+        if (mTwoPane) {
+            // In two-pane mode, show the detail view in this activity by
+            // adding or replacing the detail fragment using a
+            // fragment transaction.
+            Bundle args = new Bundle();
+            args.putString(String.valueOf(R.string.Intent_detailview_paroquia), date);
+
+            DetailFragmentParoquia fragment = new DetailFragmentParoquia();
+            fragment.setArguments(args);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.paroquia_detail_container, fragment)
+                    .commit();
+        } else {
+
+            /*
+                Sempre antes de chamar uma activity eh necessario lembrar de declara-la no manifest file
+            */
+            Intent intent = new Intent(this, DetailActivityParoquia.class)
+                    .putExtra(String.valueOf(R.string.Intent_detailview_paroquia), date);
+
+            startActivity(intent);
+        }
+    }
+
 }

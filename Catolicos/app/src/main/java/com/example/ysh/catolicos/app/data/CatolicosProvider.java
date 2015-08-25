@@ -328,7 +328,7 @@ public class CatolicosProvider extends ContentProvider {
         }
 
         getContext().getContentResolver().notifyChange(uri, null);
-        db.close();
+        //db.close();
         return returnUri;
     }
 
@@ -371,7 +371,7 @@ public class CatolicosProvider extends ContentProvider {
             //getContext().getContentResolver().notifyChange(uri, null);
         }
 
-        db.close();
+        //db.close(); **** todo : Verificar se esse pode ser o causador do bug
         // Student: return the actual rows deleted
         return NumberOfRowAffected;
     }
@@ -421,7 +421,7 @@ public class CatolicosProvider extends ContentProvider {
             getContext().getContentResolver().notifyChange(uri, null);
         }
 
-        db.close();
+        //db.close(); **** todo : Verificar se esse pode ser o causador do bug
 
         // Student: return the actual rows deleted
         return NumberOfRowImpacted;

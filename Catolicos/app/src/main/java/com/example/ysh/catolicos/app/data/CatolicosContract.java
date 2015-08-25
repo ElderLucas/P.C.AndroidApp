@@ -45,6 +45,51 @@ public class CatolicosContract {
     */
     public static final String PATH_ACTIVITY = "atividade";
 
+
+    private static final int PARISHTABLE_LOADER = 0;
+
+    /*
+        As colunas do Parish e Activity Tables
+    */
+    public static final String[] PARISH_COLUMNS = {
+            // In this case the id needs to be fully qualified with a table name, since
+            // the content provider joins the location & weather tables in the background
+            // (both have an _id column)
+            // On the one hand, that's annoying.  On the other, you can search the weather table
+            // using the location set by the user, which is only in the Location table.
+            // So the convenience is worth it.
+            ParishEntry.TABLE_NAME + "." + ParishEntry._ID,
+            ParishEntry.COLUMN_ID_PAROQUIA,
+            ParishEntry.COLUMN_NOME,
+            ParishEntry.COLUMN_REGPASTORAL,
+            ParishEntry.COLUMN_PHONE,
+            ParishEntry.COLUMN_EMAIL,
+            ParishEntry.COLUMN_WEBPAGE,
+            ParishEntry.COLUMN_ADDRESS,
+            ParishEntry.COLUMN_POSTALCODE,
+            ParishEntry.COLUMN_CITY,
+            ParishEntry.COLUMN_LATITUDE,
+            ParishEntry.COLUMN_LONGETUDE
+    };
+
+    public static final String[] ACTIVITY_COLUMNS = {
+            // In this case the id needs to be fully qualified with a table name, since
+            // the content provider joins the location & weather tables in the background
+            // (both have an _id column)
+            // On the one hand, that's annoying.  On the other, you can search the weather table
+            // using the location set by the user, which is only in the Location table.
+            // So the convenience is worth it.
+            ActivityEntry.TABLE_NAME + "." + ActivityEntry._ID,
+            ActivityEntry.COLUMN_PAR_KEY,
+            ActivityEntry.COLUMN_ID_ATIVIDADE,
+            ActivityEntry.COLUMN_DIA,
+            ActivityEntry.COLUMN_DIA_SEMANA,
+            ActivityEntry.COLUMN_HORARIO
+    };
+
+
+
+
     /*
         Inner class that defines the table contents of the Paroquia table
     */

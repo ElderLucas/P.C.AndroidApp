@@ -1,5 +1,7 @@
 package com.example.ysh.catolicos.app;
 
+import android.app.FragmentManager;
+import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
@@ -35,6 +37,12 @@ import java.util.List;
  * Created by YSH on 25/05/2015.
  */
 public class tab_paroquias extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+
+    /*
+        Implementando o callback
+    */
+    Callback mCallback;
+
 
 
     public final String LOG_TAG = tab_paroquias.class.getSimpleName();
@@ -131,6 +139,8 @@ public class tab_paroquias extends Fragment implements LoaderManager.LoaderCallb
     public static final int COL_ACTIVITY_DIA_SEMANA = 4;
     public static final int COL_ACTIVITY_HORARIO = 5;
 
+
+
     //********************************************************************************************//
     //                               Implementacoes dos Metodos                                   //
     //********************************************************************************************//
@@ -175,8 +185,25 @@ public class tab_paroquias extends Fragment implements LoaderManager.LoaderCallb
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l){
                 Cursor cursor = mTabParishAdapter.getCursor();
                 if (cursor != null && cursor.moveToPosition(position)) {
-                   // ((Callback) getActivity()).onItemSelected(cursor.getString(COL_PARISH_ID_PAROQUIA));
+
+                    Log.v(LOG_TAG, "CLIQUE OK --- Cursor sem problema - onItemCliqued");
+                    // This makes sure that the container activity has implemented
+                    // the callback interface. If not, it throws an exception
+                    try {
+                        mCallback = (Callback) getActivity();
+                    } catch (ClassCastException e) {
+                        Log.e(LOG_TAG, "CAll Back Mai Erro..... **************############");
+                        throw new ClassCastException(getActivity().toString() + " must implement OnHeadlineSelectedListener");
+
+                    }
+
+                   ((Callback) getActivity()).onItemSelected(cursor.getString(COL_PARISH_ID_PAROQUIA));
+                   // getFragmentManager().beginTransaction().add(my,"my").addToBackStack().commit()
                 }
+                else{
+                    Log.e(LOG_TAG, "CLIQUE ERRADO Curso problema- onItemCliqued");
+                }
+
                 mPosition = position;
             }
         });
@@ -223,6 +250,7 @@ public class tab_paroquias extends Fragment implements LoaderManager.LoaderCallb
     @Override
     public void onResume() {
         super.onResume();
+
         //if (mLocation != null && !mLocation.equals(Utility.getPreferredLocation(getActivity()))) {
         //todo : Aqui eu devo verificar se minha paroquia de preferencia foi alterada..... A verificacao devera ser feita no parametro do preferences file
         restart_loader();
@@ -263,11 +291,13 @@ public class tab_paroquias extends Fragment implements LoaderManager.LoaderCallb
          */
         @Override
         public void onChange(boolean selfChange) {
-            Log.d(LOG_TAG, "MyContentObserver.onChange(" + selfChange + ")");
+
+            Log.v(LOG_TAG, " ########## onChange(" + selfChange + ")");
             super.onChange(selfChange);
             // todo: here you call the method to fill the list
             // todo : Sinalizar para o loader cursor que ele deve performar uma query
-            updateParish();
+
+            //updateParish();
 
         }
     }
@@ -310,13 +340,15 @@ public class tab_paroquias extends Fragment implements LoaderManager.LoaderCallb
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        Log.v(LOG_TAG, "LoadFinished ##########");
+
         mTabParishAdapter.swapCursor(data);
         //todo - implementar o smooth control para a posicao que nos interresa
 
         if (mPosition != ListView.INVALID_POSITION) {
             // If we don't need to restart the loader, and there's a desired position to restore
             // to, do so now.
-            mListView.smoothScrollToPosition(mPosition);
+            //mListView.smoothScrollToPosition(mPosition);
         }
     }
 

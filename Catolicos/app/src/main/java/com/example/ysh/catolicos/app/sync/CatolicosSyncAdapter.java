@@ -114,7 +114,7 @@ public class CatolicosSyncAdapter extends AbstractThreadedSyncAdapter {
     @Override
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
 
-        Log.d(LOG_TAG, "Starting sync");
+        Log.v(LOG_TAG, "INICIANDO O 'onPerformSync' .... Wait ");
 
         /*
             Get Preference My Parish
@@ -145,7 +145,7 @@ public class CatolicosSyncAdapter extends AbstractThreadedSyncAdapter {
             /*
                 URL Base
              */
-            Log.d(LOG_TAG, "Starting sync");
+            Log.d(LOG_TAG, "INICIANDO CONEXAO CLOUD CATOLICOS");
             final String FORECAST_BASE_URL = "http://104.154.84.179/atividades.php?";
 
             final String PARISH_QUERY_PARAM = "paroquia";
@@ -193,10 +193,11 @@ public class CatolicosSyncAdapter extends AbstractThreadedSyncAdapter {
             getDataFromJson(mytext, ParishQuery);
 
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Error ", e);
+            Log.e(LOG_TAG, "Error Catolicos JSON ****** 1", e);
             // If the code didn't successfully get the weather data, there's no point in attempting
             // to parse it.
         } catch (JSONException e) {
+            Log.e(LOG_TAG, "Error Catolicos JSON ****** 2", e);
             e.printStackTrace();
 
             /*
@@ -205,6 +206,7 @@ public class CatolicosSyncAdapter extends AbstractThreadedSyncAdapter {
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
+                Log.v(LOG_TAG, "Catolicos URL CONECTION Done!!!");
             }
             if (reader != null) {
                 try {
@@ -214,6 +216,8 @@ public class CatolicosSyncAdapter extends AbstractThreadedSyncAdapter {
                 }
             }
         }
+
+        Log.v(LOG_TAG, "FINALIZADO O 'onPerformSync' .... ");
 
     }
 
@@ -337,9 +341,10 @@ public class CatolicosSyncAdapter extends AbstractThreadedSyncAdapter {
                         //todo : Após recebido todo o vetor, preenche o database e finaliza a inclusão dos dados.
 
                     } catch (JSONException e) {
-
+                        Log.e(LOG_TAG, "GET DATA JSON STRING - ERRO 1 - Finish");
                     }
                 }
+                Log.v(LOG_TAG, "########## GET DATA JSON STRING Finish");
             }
 
             //todo 1- gravar no database, os dados recebidos do servidor
@@ -378,9 +383,10 @@ public class CatolicosSyncAdapter extends AbstractThreadedSyncAdapter {
         } catch (JSONException e) {
 
             e.printStackTrace();
+            Log.e(LOG_TAG, "GET DATA JSON and DB Operations ERRO1 - Finish");
         }
 
-        Log.v("Details JSON ", "Sucess Sync Data");
+        Log.v(LOG_TAG, "GET DATA JSON and DB Operations - Finish");
     }
 
 
