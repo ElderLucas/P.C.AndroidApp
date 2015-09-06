@@ -37,14 +37,15 @@ public class InfoDetailParoquia extends ActionBarActivity implements FragmentMan
             Recebe Intent
         */
 
-        //intent = getIntent();
-       // ParoquiaSelected = intent.getStringExtra(String.valueOf(R.string.Intent_detailview_paroquia));
+        intent = getIntent();
+        String[] ParoquiaSelected = intent.getStringArrayExtra(String.valueOf(R.string.info_detail_paroquia));
 
         /*
             Rename toolbar
         */
         setSupportActionBar(Detailtoolbar);
-        getSupportActionBar().setTitle(ParoquiaSelected);
+        getSupportActionBar().setTitle("Informações da Paróquia");
+        Detailtoolbar.setTitleTextColor(getResources().getColor(R.color.colorToolBarText));
 
 
         if (savedInstanceState == null) {
@@ -53,7 +54,7 @@ public class InfoDetailParoquia extends ActionBarActivity implements FragmentMan
             //String date = getIntent().getStringExtra(DATE_KEY);
 
             Bundle arguments = new Bundle();
-            arguments.putString(String.valueOf(R.string.info_detail_paroquia), ParoquiaSelected);
+            arguments.putStringArray(String.valueOf(R.string.info_detail_paroquia),ParoquiaSelected);
 
             InfoDetailFragment fragment = new InfoDetailFragment();
             fragment.setArguments(arguments);

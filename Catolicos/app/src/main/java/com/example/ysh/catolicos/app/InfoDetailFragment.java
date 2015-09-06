@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.ysh.catolicos.app.data.CatolicosContract;
 
@@ -19,12 +20,14 @@ import com.example.ysh.catolicos.app.data.CatolicosContract;
  * Created by YSH on 22/08/2015.
  */
 
-public class InfoDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class InfoDetailFragment extends Fragment{
 
 
     public final String LOG_TAG = DetailActivityParoquia.class.getSimpleName();
 
     String ParoquiaDetail;
+    String[] ParoquiaDetailArray;
+
     private static final int DETAIL_LOADER = 0;
 
     public InfoDetailFragment() {
@@ -43,7 +46,8 @@ public class InfoDetailFragment extends Fragment implements LoaderManager.Loader
 
         Bundle arguments = getArguments();
         if (arguments != null) {
-            //ParoquiaDetail = arguments.getString(String.valueOf(R.string.Intent_detailview_paroquia));
+            String[] details = arguments.getStringArray(String.valueOf(R.string.info_detail_paroquia));
+            ParoquiaDetailArray = details;
         }
 
         if (savedInstanceState != null) {
@@ -52,6 +56,24 @@ public class InfoDetailFragment extends Fragment implements LoaderManager.Loader
 
         View rootView = inflater.inflate(R.layout.infodetail_paroquia, container, false);
 
+        TextView nome_textview = (TextView) rootView.findViewById(R.id.id_textview_Nome);
+        TextView regpastoral_textview = (TextView) rootView.findViewById(R.id.id_textview_REGPASTORAL);
+
+        TextView phone_textview = (TextView) rootView.findViewById(R.id.id_textview_PHONE);
+        TextView email_textview = (TextView) rootView.findViewById(R.id.id_textview_EMAIL);
+        TextView webpage_textview = (TextView) rootView.findViewById(R.id.id_textview_WEBPAGE);
+        TextView address_textview = (TextView) rootView.findViewById(R.id.id_textview_ADDRESS);
+        TextView postalcode_textview = (TextView) rootView.findViewById(R.id.id_textview_POSTALCODE);
+        TextView city_textview = (TextView) rootView.findViewById(R.id.id_textview_CITY);
+
+        nome_textview.setText(ParoquiaDetailArray[0]);
+        regpastoral_textview.setText(ParoquiaDetailArray[1]);
+        phone_textview.setText(ParoquiaDetailArray[2]);
+        email_textview.setText(ParoquiaDetailArray[3]);
+        webpage_textview.setText(ParoquiaDetailArray[4]);
+        address_textview.setText(ParoquiaDetailArray[5]);
+        postalcode_textview.setText(ParoquiaDetailArray[6]);
+        city_textview.setText(ParoquiaDetailArray[7]);
 
         return rootView;
     }
@@ -62,9 +84,15 @@ public class InfoDetailFragment extends Fragment implements LoaderManager.Loader
         super.onResume();
         Bundle arguments = getArguments();
 
+        /*
         if (arguments != null && arguments.containsKey(String.valueOf(R.string.Intent_detailview_paroquia))){
-            //    getLoaderManager().restartLoader(DETAIL_LOADER, null, this);
+                getLoaderManager().restartLoader(DETAIL_LOADER, null, this);
         }
+        */
+
+
+
+
     }
 
     @Override
@@ -78,33 +106,6 @@ public class InfoDetailFragment extends Fragment implements LoaderManager.Loader
         if (arguments != null && arguments.containsKey(String.valueOf(R.string.Intent_detailview_paroquia))) {
             //    getLoaderManager().initLoader(DETAIL_LOADER, null, this);
         }
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-
-        Uri ActivityParoquiaURi = CatolicosContract.ActivityEntry.build_ActivityParish(ParoquiaDetail);
-
-        // Now create and return a CursorLoader that will take care of creating a Cursor for the data being displayed.
-        return new CursorLoader(
-                getActivity(),
-                ActivityParoquiaURi,
-                CatolicosContract.ACTIVITY_COLUMNS,
-                null,
-                null,
-                null
-        );
-
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        Log.v("DetailParoquia", "LoadFinished ##########");
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-
     }
 
 

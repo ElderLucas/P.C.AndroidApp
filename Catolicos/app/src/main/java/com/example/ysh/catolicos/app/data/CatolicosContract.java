@@ -11,6 +11,13 @@ import android.text.format.Time;
  */
 public class CatolicosContract {
 
+    public static final String segunda = "Segunda-feira";
+    public static final String terca   = "Terça-feira";
+    public static final String quarta  = "Quarta-feira";
+    public static final String quinta  = "Quinta-feira";
+    public static final String sexta   = "Sexta-feira";
+    public static final String sabado  = "Sábado";
+    public static final String domingo = "Domingo";
      /*
         Query to access my Google Cloud SQL database
         http://104.154.84.179/atividades.php?paroquia=ParishName&dia=WeekDay
@@ -87,8 +94,31 @@ public class CatolicosContract {
             ActivityEntry.COLUMN_HORARIO
     };
 
+    public static final String[] ACTIVITY_COLUMNS_detailView = {
+            // In this case the id needs to be fully qualified with a table name, since
+            // the content provider joins the location & weather tables in the background
+            // (both have an _id column)
+            // On the one hand, that's annoying.  On the other, you can search the weather table
+            // using the location set by the user, which is only in the Location table.
+            // So the convenience is worth it.
+            ActivityEntry.TABLE_NAME + "." + ActivityEntry._ID,
+            ActivityEntry.COLUMN_PAR_KEY,
+            ActivityEntry.COLUMN_ID_ATIVIDADE,
+            ActivityEntry.COLUMN_DIA,
+            ActivityEntry.COLUMN_DIA_SEMANA,
+            ActivityEntry.COLUMN_HORARIO,
 
-
+            ParishEntry.COLUMN_NOME,
+            ParishEntry.COLUMN_REGPASTORAL,
+            ParishEntry.COLUMN_PHONE,
+            ParishEntry.COLUMN_EMAIL,
+            ParishEntry.COLUMN_WEBPAGE,
+            ParishEntry.COLUMN_ADDRESS,
+            ParishEntry.COLUMN_POSTALCODE,
+            ParishEntry.COLUMN_CITY,
+            ParishEntry.COLUMN_LATITUDE,
+            ParishEntry.COLUMN_LONGETUDE
+    };
 
     /*
         Inner class that defines the table contents of the Paroquia table
@@ -230,5 +260,6 @@ public class CatolicosContract {
         }
 
     }
+
 
 }

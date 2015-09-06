@@ -19,7 +19,7 @@ import android.widget.ImageView;
 /**
  * Created by YSH on 10/08/2015.
  */
-public class DetailActivityParoquia extends ActionBarActivity implements FragmentManager.OnBackStackChangedListener, DetailFragmentParoquia.Callback {
+public class DetailActivityParoquia extends ActionBarActivity implements FragmentManager.OnBackStackChangedListener, DetailFragmentParoquia_ListViewAdapter.Callback {
 
     public static final String DATE_KEY = "paroquia_setected";
     private Toolbar Detailtoolbar;
@@ -36,8 +36,10 @@ public class DetailActivityParoquia extends ActionBarActivity implements Fragmen
         setContentView(R.layout.activity_detail_paroquia);
 
         Detailtoolbar = (Toolbar) findViewById(R.id.tool_bar);
+        Detailtoolbar.setTitleTextColor(getResources().getColor(R.color.colorToolBarText));
         setSupportActionBar(Detailtoolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         /*
             Recebe Intent
@@ -158,9 +160,8 @@ public class DetailActivityParoquia extends ActionBarActivity implements Fragmen
         Metodo da INTERFACE com Fragmento DetailFragment
     */
     @Override
-    public void showMyParishInfo(String idParoquia) {
-
-        Intent intent = new Intent(this, InfoDetailParoquia.class);//.putExtra(String.valueOf(R.string.info_detail_paroquia), idParoquia);
+    public void showMyParishInfo(String[] idParoquia) {
+        Intent intent = new Intent(this, InfoDetailParoquia.class).putExtra(String.valueOf(R.string.info_detail_paroquia), idParoquia);
         startActivity(intent);
     }
 }

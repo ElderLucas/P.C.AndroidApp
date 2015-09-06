@@ -1,9 +1,12 @@
 package com.example.ysh.catolicos.app;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -13,7 +16,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.ysh.catolicos.app.data.CatolicosContract;
 
@@ -29,6 +35,15 @@ public class DetailFragmentParoquia extends Fragment implements LoaderManager.Lo
     String ParoquiaDetail;
     private static final int DETAIL_LOADER = 0;
     Callback mCallback;
+
+    Uri ParishUri = CatolicosContract.ParishEntry.CONTENT_URI;
+    Uri ActivityUri = CatolicosContract.ActivityEntry.CONTENT_URI;
+
+    /*
+        Adapatador para a list view da details parish list view
+    */
+    private DetailFragmentParoquia_ListViewAdapter mAdapter;
+    private ListView mListView;
 
     /*
         Interface com activity
@@ -66,54 +81,40 @@ public class DetailFragmentParoquia extends Fragment implements LoaderManager.Lo
             //mLocation = savedInstanceState.getString(LOCATION_KEY);
         }
 
-        View rootView = inflater.inflate(R.layout.fragment_detail_paroquia, container, false);
-
-
         /*
-            Tratando o Botão Como Chegar
-         */
-        Button comochegar_button = (Button) rootView.findViewById(R.id.como_chegar_button);
-        Button info_button = (Button) rootView.findViewById(R.id.info_paroquia_button);
+            Aqui eu registro o ContentObserver para "escutar" mudanças no content provider
+        */
+        MyContentObserver observer = new MyContentObserver(null);
 
-        comochegar_button.setOnClickListener(new View.OnClickListener() {
+       /*
+           Registra o Content observer refernrete ao notifyChange(uri... que é "setado" dentro do contente Observer
+       */
+       this.getActivity().getContentResolver().registerContentObserver(ActivityUri, true, observer);
+
+       /*
+           Inicializa o adapter
+       */
+       mAdapter = new DetailFragmentParoquia_ListViewAdapter(getActivity(), null, 0);
+       View rootView = inflater.inflate(R.layout.fragment_detail_paroquia, container, false);
+       mListView = (ListView) rootView.findViewById(R.id.listview_detail_paroquia);
+       mListView.setAdapter(mAdapter);
+
+       /*
+       mListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
-            public void onClick(View v) {
-                Log.v(LOG_TAG, "Botao Como chegar");
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    long viewId = view.getId();
 
-               // Uri gmmIntentUri = Uri.parse("google.maps:q=-23.202626,-45.901777&mode=off");  //-23.202471, -45.901424
-
-                Uri gmmIntentUri = Uri.parse("http://maps.google.com/maps?daddr=-23.202626,-45.901777&mode=d");
-
-
-                try {
-                    mCallback = (Callback) getActivity();
-                } catch (ClassCastException e) {
-                    Log.e(LOG_TAG, "Call Back Detail error");
-                    throw new ClassCastException(getActivity().toString() + " must implement OnHeadlineSelectedListener");
-
+                    if (viewId == R.id.como_chegar_button) {
+                        Toast.makeText(getActivity(),"Comochegar", Toast.LENGTH_SHORT );
+                    } else if (viewId == R.id.info_paroquia_button) {
+                        Toast.makeText(getActivity(), "Info", Toast.LENGTH_SHORT);
+                    } else {
+                        Toast.makeText(getActivity(), "Outro", Toast.LENGTH_SHORT);
+                    }
                 }
-
-                ((Callback) getActivity()).showMyParishOnMap(gmmIntentUri);
-            }
-        });
-
-
-        info_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.v(LOG_TAG, "Botao Info");
-
-                try {
-                    mCallback = (Callback) getActivity();
-                } catch (ClassCastException e) {
-                    Log.e(LOG_TAG, "Call Back Detail error");
-                    throw new ClassCastException(getActivity().toString() + " must implement OnHeadlineSelectedListener");
-                }
-                ((Callback) getActivity()).showMyParishInfo("MyParish");
-
-            }
-        });
-
+            });
+        */
         return rootView;
     }
 
@@ -163,7 +164,7 @@ public class DetailFragmentParoquia extends Fragment implements LoaderManager.Lo
         return new CursorLoader(
                 getActivity(),
                 ActivityParoquiaURi,
-                CatolicosContract.ACTIVITY_COLUMNS,
+                CatolicosContract.ACTIVITY_COLUMNS_detailView,//CatolicosContract.ACTIVITY_COLUMNS,
                 null,
                 null,
                 null
@@ -173,15 +174,46 @@ public class DetailFragmentParoquia extends Fragment implements LoaderManager.Lo
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
-        Log.v("DetailParoquia", "LoadFinished ##########");
-
+        mAdapter.swapCursor(data);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+        mAdapter.swapCursor(null);
 
     }
+
+
+    /*
+    Content Observer que recebe notificacoes de alteracoes na URI que foi registrada para observacao.
+    O Registro da notificacao da URI é feita no content provider.
+*/
+    class MyContentObserver extends ContentObserver {
+        public MyContentObserver(Handler h) {
+            super(h);
+        }
+
+        @Override
+        public boolean deliverSelfNotifications() {
+            return true;
+        }
+
+        /*
+            Estou notificando as uri de paroquia e atividade. Por implementacao, estou apenas as notificando a tab atividaed prq na pratica incluo paroquias e depois os horarios.
+         */
+        @Override
+        public void onChange(boolean selfChange) {
+
+            Log.v(LOG_TAG, " ########## onChange(" + selfChange + ")");
+            super.onChange(selfChange);
+            // todo: here you call the method to fill the list
+            // todo : Sinalizar para o loader cursor que ele deve performar uma query
+
+            //updateParish();
+
+        }
+    }
+
 
 
 

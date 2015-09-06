@@ -1,98 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Master layout. -->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fragment_detail_container"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="8dp"
-    android:clipToPadding="false"
-    android:textAlignment="textStart">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:gravity="center_horizontal"
-        android:layout_weight="4"
-        android:elevation="6dp"
-        android:layout_height="match_parent"
+    <ListView
+        android:id="@+id/listview_detail_paroquia"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:clipToPadding="false"
-        >
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:layout_gravity="center" />
 
-        <ImageView
-            android:src="@drawable/capa_sagrada_familia"
-            android:id="@+id/detail_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="220dp"
-            android:scaleType="centerCrop"
-            android:layout_weight="2"/>
-
-        <!-- Image View Foto Paroquia                           -->
-        <LinearLayout
-            android:gravity="center_horizontal"
-            android:id="@+id/llayout"
-            android:background="@color/colorPrimary"
-            android:elevation="4dp"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:padding="0dp">
-
-            <Button
-                android:id="@+id/como_chegar_button"
-                android:drawableTop="@drawable/ic_go2igreja"
-
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="Como Chegar"
-                android:textColor="@color/colorWithe"
-                android:fontFamily="sans-serif-condensed"
-                android:textSize="15dp"
-                android:textAlignment="gravity"
-                android:onClick="selfDestruct"
-                style="?android:attr/borderlessButtonStyle"
-                android:padding="0dp"
-                android:paddingRight="0dp"
-                android:layout_marginRight="80dp" />
-
-            <Button
-                android:id="@+id/info_paroquia_button"
-                android:drawableTop="@drawable/ic_info"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="Informações"
-                android:textColor="@color/colorWithe"
-                android:fontFamily="sans-serif-condensed"
-                android:textSize="15dp"
-                android:onClick="selfDestruct"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_gravity="center"
-                android:padding="0dp"
-                android:layout_marginLeft="0dp"
-                android:textAlignment="center"
-                android:layout_marginRight="0dp"
-                android:elegantTextHeight="false"
-                android:paddingLeft="0dp" />
-
-        </LinearLayout>
-
-        <ListView
-            android:id="@+id/listview_details_paroquia"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorWithe"/>
-
-    </LinearLayout>
-
-
-        <!-- List Item Missa Hoje                               -->
-        <!-- List Item Confissões Hoje                          -->
-        <!-- List Item Terço Hoje                               -->
-        <!-- List Item Missa, Confissões e Terço Amanha         -->
-        <!-- List Item Missa, Confissões e Terço Amanha + 1dia  -->
-        <!-- List Item Missa, Confissões e Terço Amanha + 2dia  -->
-        <!-- List Item Missa, Confissões e Terço Amanha + 3dia  -->
-        <!-- List Item Missa, Confissões e Terço Amanha + 4dia  -->
-        <!-- List Item Missa, Confissões e Terço Amanha + 5dia  -->
-
-</ScrollView>
+</FrameLayout>

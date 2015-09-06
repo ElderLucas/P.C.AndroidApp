@@ -44,17 +44,20 @@ public class tab_missas_Adapter extends CursorAdapter {
         int layoutId = -1;
         switch (viewType) {
             case VIEW_TYPE_MYPARISH: {
-                layoutId = R.layout.list_item_missas; //list_item_missas_MyParish;
+                layoutId = R.layout.list_item_detail_geral_simples; //list_item_missas_MyParish;
                 break;
             }
             case VIEW_TYPE_OTHERPARISH: {
-                layoutId = R.layout.list_item_missas;
+                layoutId = R.layout.list_item_detail_geral_simples;
+                break;
+            }
+            default: {
+                layoutId = R.layout.list_item_detail_geral_simples;         //item generalizado com os outro dias;
                 break;
             }
         }
 
         View view = LayoutInflater.from(context).inflate(layoutId, parent, false);
-
         ViewHolder viewHolder = new ViewHolder(view);
         view.setTag(viewHolder);
 

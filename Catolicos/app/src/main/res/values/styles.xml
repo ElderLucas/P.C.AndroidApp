@@ -4,6 +4,32 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorControlNormal">@color/colorThirdTextTab</item>
+        <item name="android:textColorSecondary">@color/colorThirdTextTab</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="WindowTitleBackground" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:background">@color/colorToolBar</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+    </style>
+
+    <style name="StyleToolbar">
+        <item name="android:background">@color/colorToolBar</item>
+        <item name="android:textColor">@color/colorToolBarText</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
+        <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
+        <item name="colorControlNormal">@color/colorThirdTextTab</item>
+        <item name="android:textColorSecondary">@color/colorThirdTextTab</item>
+    </style>
+
+    <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="RobotoButtonStyle" parent="android:Widget.Holo.Button">
+        <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
 </resources>

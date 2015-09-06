@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:paddingLeft="@dimen/list_view_paroquia_detail"
+    android:paddingRight="@dimen/list_view_paroquia_detail"
+    android:paddingTop="2dp"
+    android:orientation="horizontal">
+
+    <!-- Atividades dos dia -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:background="@color/colorWhite"
+        android:elevation="2dp"
+        android:baselineAligned="false">
+
+        <ImageView
+            android:id="@+id/detailview_geral_icon"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_weight="4"
+            android:padding="12dp"
+            android:layout_height="60dp"
+            android:src="@drawable/grow_calice" />
+
+        <TextView
+            android:layout_gravity="left"
+            android:id="@+id/detailview_geral_missa"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:fontFamily="sans-serif-thin"
+            android:textColor="@color/colorFirstText"
+            android:textSize="20dp"
+            android:text="A"
+            android:paddingTop="2dp"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:layout_gravity="left"
+            android:id="@+id/detailview_item_geral_horamissas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="sans-serif-thin"
+            android:layout_weight="3"
+            android:textColor="@color/colorFirstText"
+            android:textSize="18dp"
+            android:text="A"
+            android:paddingTop="2dp"
+            android:gravity="center_vertical|center_horizontal" />
+    </LinearLayout>
+</LinearLayout>
+

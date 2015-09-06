@@ -20,22 +20,23 @@
     <!-- Parish Name and Address -->
     <LinearLayout
         android:layout_height="wrap_content"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_weight="7"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tabParish_list_item_ParishName"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:textSize="15sp"/>
+            android:layout_height="match_parent"
+            android:fontFamily="sans-serif-thin"
+            android:textSize="35sp"
+            android:text="Sagrada Família"/>
 
         <TextView
             android:id="@+id/tabParish_list_item_AddressParish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="sans-serif-thin"
             android:textAppearance="?android:textAppearanceSmall"/>
     </LinearLayout>
 
@@ -52,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="sans-serif"
+            android:fontFamily="sans-serif-thin"
             android:text="hoje" />
 
         <!-- Icones de Atividades dos dia -->

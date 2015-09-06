@@ -2,4 +2,13 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="list_view_paroquia_detail">0dp</dimen>
+
+    <!-- Dimensões do Layout infodetail_paroquia : "ipdv : info paroquia detail view" -->
+    <dimen name="ipdv_textview_paddingLeft">5dp</dimen>
+    <dimen name="ipdv_textview_paddingRight">0dp</dimen>
+    <dimen name="ipdv_textview_paddingTop">10dp</dimen>
+    <dimen name="ipdv_textview_paddingBotton">2dp</dimen>
+
+
 </resources>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/list_view_paroquia_detail"
+    android:paddingRight="@dimen/list_view_paroquia_detail">
+
+
+    <!-- Image View Foto Paroquia -->
+    <ImageView
+        android:src="@drawable/capa_sagrada_familia"
+        android:id="@+id/detail_icon"
+        android:layout_width="wrap_content"
+        android:scaleType="centerCrop"
+        android:layout_height="220dp"/>
+
+
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:id="@+id/llayout"
+        android:background="@color/colorDetailView"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:elevation="2dp">
+
+        <Button
+            android:id="@+id/como_chegar_button"
+            android:drawableTop="@drawable/ic_go2igreja"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Como Chegar"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="sans-serif-condensed"
+            android:textSize="15dp"
+            android:textAlignment="gravity"
+            android:onClick="selfDestruct"
+            style="?android:attr/borderlessButtonStyle"
+            android:padding="0dp"
+            android:paddingRight="0dp"
+            android:layout_marginRight="80dp"
+            android:focusable="true"
+            android:clickable="true"/>
+
+        <Button
+            android:id="@+id/info_paroquia_button"
+            android:drawableTop="@drawable/ic_info"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Informações"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="sans-serif-condensed"
+            android:textSize="15dp"
+            android:onClick="selfDestruct"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_gravity="center"
+            android:padding="0dp"
+            android:layout_marginLeft="0dp"
+            android:textAlignment="center"
+            android:layout_marginRight="0dp"
+            android:elegantTextHeight="false"
+            android:paddingLeft="0dp" />
+
+    </LinearLayout>
+
+
+    <!-- Atividades dos dia -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:background="@color/colorMainDayDetailBG"
+        android:elevation="4dp"
+
+        android:baselineAligned="false">
+
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="7"
+            android:paddingLeft="20dp"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_gravity="left"
+                android:id="@+id/detailview_dia_semana"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-thin"
+
+                android:textColor="@color/colorSecText"
+                android:textSize="30sp"
+                android:paddingTop="8dp"/>
+
+            <TextView
+                android:layout_gravity="left"
+                android:id="@+id/detailview_next_missa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-thin"
+                android:text="7:00"
+                android:textColor="@color/colorFirstText"
+                android:textSize="55dp"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:paddingTop="1dp"/>
+
+            <TextView
+                android:layout_gravity="left"
+                android:id="@+id/detailview_others_missa"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:fontFamily="sans-serif-light"
+
+                android:textColor="@color/colorSecText"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:paddingTop="1dp"
+                android:paddingBottom="6dp"/>
+
+        </LinearLayout>
+
+        <!-- Atividades dos dia -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/detailview_growcalice"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_weight="2"
+                android:padding="0dp"
+                android:layout_height="94dp"
+                android:src="@drawable/grow_calice"/>
+
+            <TextView
+                android:id="@+id/detailview_today_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-thin"
+                android:textColor="@color/colorFirstText"
+                android:layout_gravity="center"
+                android:textSize="30dp"
+                android:text="Missa" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

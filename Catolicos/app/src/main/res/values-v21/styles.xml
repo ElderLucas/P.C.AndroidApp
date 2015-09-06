@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="StyleToolbar">
+        <item name="android:background">@color/colorToolBar</item>
+        <item name="android:textColor">@color/colorToolBarText</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:colorPrimary">@color/colorWhite</item>
+    </style>
+</resources>

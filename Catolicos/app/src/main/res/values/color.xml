@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="color">#81D4FA</color>
-    <color name="tabsScrollColor">#FFFF00</color>
-    <color name="colorPrimaryDark">#01579B</color>
-    <color name="colorPrimary">#0288D1</color>
-    <color name="colorTab">#03A9F4</color>
 
     <color name="colorSecText">#acb5b8</color>
     <color name="colorFirstText">#6b6b6b</color>
+    <color name="colorToolBarText">#ffffff</color>
+
     <color name="colorAddressText">#b4b4b4</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBGList">#a4a4a4</color>
+    <color name="colorMainDayDetailBG">#ffffff</color>
 
-    <color name="colorWithe">#ffffff</color>
+    <color name="colorFirstTextTab">#ffffff</color>
+    <color name="colorSecondTextTab">#616161</color>
+    <color name="colorThirdTextTab">#BBDEFB</color>
 
+
+    <color name="colorPrimaryDark">#1565C0</color>
+    <color name="colorToolBar">#1976D2</color>
+
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorTab">#2196F3</color>
+    <color name="tabsScrollColor">#FFFF00</color>
+
+    <color name="colorDetailView">#2196F3</color>
+
+    <color name="color_trademark">#212121</color>
+
+
+    212121
 </resources>

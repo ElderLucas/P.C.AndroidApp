@@ -2,32 +2,26 @@ package com.example.ysh.catolicos.app.sync;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
+
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
+
 import android.content.SharedPreferences;
 import android.content.SyncRequest;
 import android.content.SyncResult;
-import android.content.res.Resources;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
 import android.preference.PreferenceManager;
-import android.support.v4.app.NotificationCompat;
+
 import android.text.Html;
 import android.util.Log;
 
-import com.example.ysh.catolicos.app.MainActivity;
 import com.example.ysh.catolicos.app.R;
 import com.example.ysh.catolicos.app.Utilities;
 import com.example.ysh.catolicos.app.data.CatolicosContract;
@@ -41,10 +35,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
+
 import java.net.URL;
 import java.util.Iterator;
-import java.util.Objects;
+
 import java.util.Vector;
 
 /*
@@ -73,12 +67,12 @@ public class CatolicosSyncAdapter extends AbstractThreadedSyncAdapter {
     public final String LOG_TAG = CatolicosSyncAdapter.class.getSimpleName();
     // Interval at which to sync with the weather, in milliseconds.
     // 60 seconds (1 minute) * 180 = 3 hours
-    public static final int SYNC_INTERVAL = 60 * 180;
+    //public static final int SYNC_INTERVAL = 60 * 180;
     public static final int SYNC_INTERVAL_debug = 3;
-    public static final int SYNC_FLEXTIME = SYNC_INTERVAL/3;
+    //public static final int SYNC_FLEXTIME = SYNC_INTERVAL/3;
     public static final int SYNC_FLEXTIME_debug = SYNC_INTERVAL_debug/3;
-    private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
-    private static final int PARISH_NOTIFICATION_ID = 3004;
+    //private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
+   // private static final int PARISH_NOTIFICATION_ID = 3004;
 
     public static Utilities myUtilities = new Utilities();
     // Global variables
@@ -131,14 +125,6 @@ public class CatolicosSyncAdapter extends AbstractThreadedSyncAdapter {
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
 
-        /*
-            Will contain the raw JSON response as a string.
-        */
-        String ActivityParishJsonStr = null;
-
-        String Parish = "json";
-        String units = "metric";
-        int numDays = 14;
 
         try {
 
@@ -248,8 +234,28 @@ public class CatolicosSyncAdapter extends AbstractThreadedSyncAdapter {
         final String OWM_POSTALCODE    = "Postalcode";
         final String OWM_DIASEMANA     = "Dia da Semana";
 
+        String horariosMissaSegunda;
+        String horariosMissaTerca;
+        String horariosMissaQuarta;
+        String horariosMissaQuinta;
+        String horariosMissaSexta;
+        String horariosMissaSabado;
+        String horariosMissaDomingo;
+
+
+        String hourSegunda;
+        String hourTerca;
+        String hourQuarta;
+        String hourQuinta;
+        String hourSexta;
+        String hourSabado;
+        String hourDomingo;
+
+        ContentValues ActivityDaysValues = new ContentValues();
+
 
         try {
+
 
             JSONArray ParishJson = new JSONArray(CatolicosJsonStr);
 
@@ -261,6 +267,21 @@ public class CatolicosSyncAdapter extends AbstractThreadedSyncAdapter {
             Vector<ContentValues> cVVectorActivityDays = new Vector<ContentValues>();
 
             for(int i = 0; i < ParishJson.length(); i++) {
+
+                /*
+                    Limpa as strings que conterao os horario de missa de cada dia
+                 */
+                horariosMissaSegunda     = "";
+                horariosMissaTerca       = "";
+                horariosMissaQuarta      = "";
+                horariosMissaQuinta      = "";
+                horariosMissaSexta       = "";
+                horariosMissaSabado      = "";
+                horariosMissaDomingo     = "";
+
+                String[] horarioMissa   = new String[7]; //Referente a sete dias
+
+                ActivityDaysValues       = new ContentValues();
 
                 JSONObject myObjJSON = ParishJson.getJSONObject(i);
                 //todo : Pede-se para utilizar um Iterable para retornar um iterator.
@@ -274,6 +295,7 @@ public class CatolicosSyncAdapter extends AbstractThreadedSyncAdapter {
                         JSONObject myDetails = myObjJSON.getJSONObject(key);
 
                         String idParoquia   = key;
+                        String daykey_copy  = "";
 
                         String parishName   = myDetails.getString(OWM_PAROQUIA);
                         String activityType = myDetails.getString(OWM_ACTIVITY_TYPE);
@@ -312,38 +334,79 @@ public class CatolicosSyncAdapter extends AbstractThreadedSyncAdapter {
                         for(int days = 0; days < DiasDaSemanaJson.length(); days++) {
                             JSONObject myDaysObjJSON = DiasDaSemanaJson.getJSONObject(days);
                             Iterator<String> days_iter = myDaysObjJSON.keys();
-
-                            /*
+                           /*
                                 recebe e separa os dias que sao necessarios para o preenchimento da minha string de gravacao no db
                             */
                             while (days_iter.hasNext()){
                                 String daykey = days_iter.next();
+                                daykey_copy = daykey;
+
                                 try {
                                     String hour = myDaysObjJSON.getString(daykey);
-                                    ContentValues ActivityDaysValues = new ContentValues();
-                                    ActivityDaysValues.put(CatolicosContract.ActivityEntry.COLUMN_PAR_KEY, idParoquia);
-                                    ActivityDaysValues.put(CatolicosContract.ActivityEntry.COLUMN_ID_ATIVIDADE, activityType);
+                                    String tempHorarioMissa;
                                     /*
-                                    todo - fazer com que o dia entre em formato com acentos e retorne intendivel-- Day key eh o que deve ser corrigido
+                                        Is equal when "0"
                                     */
-                                    ActivityDaysValues.put(CatolicosContract.ActivityEntry.COLUMN_DIA,          myUtilities.Rawdayofweek(daykey)); //todo - **GATO* para pegar dado bruto do nome do dia da semana
-                                    ActivityDaysValues.put(CatolicosContract.ActivityEntry.COLUMN_DIA_SEMANA,   daykey);
-                                    ActivityDaysValues.put(CatolicosContract.ActivityEntry.COLUMN_HORARIO,      hour);
-
-                                    cVVectorActivityDays.add(ActivityDaysValues);
+                                    if ((daykey.compareTo(CatolicosContract.domingo)== 0)){
+                                        horariosMissaDomingo = horariosMissaDomingo.concat(hour + ",");
+                                        horarioMissa[0] = horariosMissaDomingo;
+                                    }else if (daykey.compareTo(CatolicosContract.segunda)== 0) {
+                                        horariosMissaSegunda = horariosMissaSegunda.concat(hour + ",");
+                                        horarioMissa[1] = horariosMissaSegunda;
+                                    }else if ((daykey.compareTo(CatolicosContract.terca)== 0)){
+                                        horariosMissaTerca = horariosMissaTerca.concat(hour + ",");
+                                        horarioMissa[2] = horariosMissaTerca;
+                                    }else if ((daykey.compareTo(CatolicosContract.quarta)== 0)){
+                                        horariosMissaQuarta = horariosMissaQuarta.concat(hour + ",");
+                                        horarioMissa[3] = horariosMissaQuarta;
+                                    }else if ((daykey.compareTo(CatolicosContract.quinta)== 0)){
+                                        horariosMissaQuinta = horariosMissaQuinta.concat(hour + ",");
+                                        horarioMissa[4] = horariosMissaQuinta;
+                                    }else if ((daykey.compareTo(CatolicosContract.sexta)== 0)){
+                                        horariosMissaSexta = horariosMissaSexta.concat(hour + ",");
+                                        horarioMissa[5] =horariosMissaSexta;
+                                    }else if ((daykey.compareTo(CatolicosContract.sabado)== 0)){
+                                        horariosMissaSabado = horariosMissaSabado.concat(hour + ",");
+                                        horarioMissa[6] = horariosMissaSabado;
+                                    }else{
+                                        horariosMissaSabado = horariosMissaSabado;
+                                    }
 
                                 }catch (JSONException e){
                                     Log.e("DayJSON", "Vasio");
                                 }
                             }
                         }
-                        //todo : Aqui é o lugar em que eu preciso salvar no banco de dados.
-                        //todo : Após recebido todo o vetor, preenche o database e finaliza a inclusão dos dados.
+
+                        /*
+                            Finaliza o Vetor com as informações da Paroquia de segunda a Domingo.
+                         */
+                        for(int daysWeek = 1; daysWeek <= 7 ; daysWeek++) {
+
+                            if (horarioMissa[daysWeek - 1] == null) {
+                                ActivityDaysValues = new ContentValues(); //Se o dia tiver algo... preenche! Senão,
+                            } else{
+                                ActivityDaysValues.put(CatolicosContract.ActivityEntry.COLUMN_PAR_KEY, idParoquia);
+                                ActivityDaysValues.put(CatolicosContract.ActivityEntry.COLUMN_ID_ATIVIDADE, activityType);
+                                ActivityDaysValues.put(CatolicosContract.ActivityEntry.COLUMN_DIA, myUtilities.Rawdayofweek(myUtilities.dayOfid(daysWeek)));
+                                ActivityDaysValues.put(CatolicosContract.ActivityEntry.COLUMN_DIA_SEMANA, myUtilities.dayOfid(daysWeek));
+                                ActivityDaysValues.put(CatolicosContract.ActivityEntry.COLUMN_HORARIO, myUtilities.SplitComa(horarioMissa[daysWeek - 1]));
+                                cVVectorActivityDays.add(ActivityDaysValues);
+                                ActivityDaysValues = new ContentValues();
+                            }
+
+                        }
+
+                        //cVVectorActivityDays.add(ActivityDaysValues);
+
 
                     } catch (JSONException e) {
                         Log.e(LOG_TAG, "GET DATA JSON STRING - ERRO 1 - Finish");
                     }
                 }
+
+
+
                 Log.v(LOG_TAG, "########## GET DATA JSON STRING Finish");
             }
 

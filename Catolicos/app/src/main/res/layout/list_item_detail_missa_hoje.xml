@@ -18,7 +18,7 @@
         android:elevation="4dp"
         android:baselineAligned="false">
 
-        <!-- Parish Name and Address -->
+
         <LinearLayout
             android:layout_height="match_parent"
             android:layout_width="0dp"
@@ -40,7 +40,7 @@
 
             <TextView
                 android:layout_gravity="left"
-                android:id="@+id/detailview_hora_missa"
+                android:id="@+id/detailview_next_missa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-thin"
@@ -52,7 +52,7 @@
 
             <TextView
                 android:layout_gravity="left"
-                android:id="@+id/detailview_hora_proxima_missa"
+                android:id="@+id/detailview_others_missa"
                 android:layout_width="wrap_content"
                 android:layout_height="26dp"
                 android:fontFamily="sans-serif-light"
@@ -81,7 +81,7 @@
                 android:src="@drawable/grow_calice"/>
 
             <TextView
-                android:id="@+id/detailview_activity"
+                android:id="@+id/detailview_today_activity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-thin"

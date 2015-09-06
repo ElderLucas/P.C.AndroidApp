@@ -52,13 +52,17 @@ public class MainActivity extends ActionBarActivity implements tab_paroquias.Cal
 
 
         Paroquias               = getResources().getString(R.string.Paroquias);
-        Confissoes              = getResources().getString(R.string.Confissoes);
+        //Confissoes              = getResources().getString(R.string.Confissoes);
+        Confissoes              = "FEED";
         Missas                  = getResources().getString(R.string.Missas);
         CharSequence Titles[]   ={Paroquias,Missas,Confissoes};
         int Numboftabs          = 3;
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+        toolbar.setLogo(R.drawable.ic_main);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
 
         adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs);
         pager = (ViewPager) findViewById(R.id.pager);

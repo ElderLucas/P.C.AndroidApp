@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_selected="true" android:color="@android:color/white" />
-    <item android:state_focused="true" android:color="@android:color/white" />
-    <item android:state_pressed="true" android:color="@android:color/white" />
-    <item android:color="@color/color" />
+    <item android:state_selected="true" android:color="@color/colorFirstTextTab" android:fontFamily="sans-serif-thin"/>
+
+    <item android:state_focused="true"  android:color="@color/colorSecondTextTab" android:fontFamily="sans-serif-thin"/>
+
+    <item android:state_pressed="true"  android:color="@color/colorThirdTextTab" android:fontFamily="sans-serif-thin"/>
+
+    <item android:color="@color/colorThirdTextTab"/>
+
 </selector>

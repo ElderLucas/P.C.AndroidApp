@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     android:textAlignment="textStart">
 
     <!-- Principal -->
@@ -13,15 +14,267 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:elevation="5dp"
-        android:padding="8dp">
+        android:elevation="5dp">
+        <!-- Nome da Paróquia -->
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/id_textview_nomeparoquia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
+            android:text="Paróquia:"
+            android:textColor="@color/colorFirstText"
+            android:textSize="10dp"
+            android:paddingTop="@dimen/ipdv_textview_paddingTop"
+            android:paddingLeft="@dimen/ipdv_textview_paddingLeft"/>
 
-        <ImageView
-            android:src="@drawable/ic_go2igreja"
-            android:id="@+id/ic_info_detail"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/id_textview_Nome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
+            android:text="N.S.Fátima"
+            android:textColor="@color/colorFirstText"
+            android:textSize="35dp"
+            android:paddingTop="2dp"
+            android:paddingLeft="5dp"/>
+
+
+        <!-- Nome da Região Pastoral -->
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/id_textview_nomeregpastoral"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
+            android:text="Região: "
+            android:textColor="@color/colorFirstText"
+            android:textSize="10dp"
+            android:paddingTop="@dimen/ipdv_textview_paddingTop"
+            android:paddingLeft="@dimen/ipdv_textview_paddingLeft"/>
+
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/id_textview_REGPASTORAL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:fontFamily="sans-serif-thin"
+            android:textColor="@color/colorTab"
+            android:text="Região Pastoral II"
+            android:textSize="20dp"
+            android:paddingTop="2dp"
+            android:paddingLeft="5dp"/>
+
+        <!-- Número de telefone -->
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/id_textview_numberofphone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
+            android:text="Telefone: "
+            android:textColor="@color/colorFirstText"
+            android:textSize="10dp"
+            android:paddingTop="@dimen/ipdv_textview_paddingTop"
+            android:paddingLeft="@dimen/ipdv_textview_paddingLeft"/>
+
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/id_textview_PHONE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:fontFamily="sans-serif-thin"
+            android:text="(12)988112211"
+            android:textColor="@color/colorTab"
+            android:textSize="20dp"
+            android:paddingLeft="5dp"
+            />
+
+        <!-- Email -->
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/id_textview_paroquia_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
+            android:text="email da paróquia: "
+            android:textColor="@color/colorFirstText"
+            android:textSize="10dp"
+            android:paddingTop="@dimen/ipdv_textview_paddingTop"
+            android:paddingLeft="@dimen/ipdv_textview_paddingLeft"/>
+
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/id_textview_EMAIL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:fontFamily="sans-serif-thin"
+            android:textColor="@color/colorTab"
+            android:text="paroquia@diocese.com.br"
+            android:textSize="20dp"
+            android:paddingLeft="5dp"
+            />
+
+
+        <!-- WebPage Paroquial -->
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/id_textview_paroquia_webpage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
+            android:text="WebPage da paróquia: "
+            android:textColor="@color/colorFirstText"
+            android:textSize="10dp"
+            android:paddingTop="@dimen/ipdv_textview_paddingTop"
+            android:paddingLeft="@dimen/ipdv_textview_paddingLeft"/>
+
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/id_textview_WEBPAGE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:fontFamily="sans-serif-thin"
+            android:textColor="@color/colorTab"
+            android:text="www.paroquinsfatima.com.br"
+            android:textSize="20dp"
+            android:paddingLeft="5dp"
+            />
+
+
+        <!-- Address Paroquial -->
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/id_textview_paroquia_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
+            android:text="Endereço"
+            android:textColor="@color/colorFirstText"
+            android:textSize="10dp"
+            android:paddingTop="@dimen/ipdv_textview_paddingTop"
+            android:paddingLeft="@dimen/ipdv_textview_paddingLeft"/>
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/id_textview_ADDRESS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:fontFamily="sans-serif-thin"
+            android:text="R:Serra dourada, n°33 Jd. A. de Santana"
+            android:textColor="@color/colorTab"
+            android:textSize="15dp"
+            android:paddingTop="2dp"
+            android:paddingLeft="5dp"
+            />
+
+
+        <!-- PostalCode da Paroquial -->
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/id_textview_paroquia_cep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
+            android:text="CEP: "
+            android:textColor="@color/colorFirstText"
+            android:textSize="10dp"
+            android:paddingTop="@dimen/ipdv_textview_paddingTop"
+            android:paddingLeft="@dimen/ipdv_textview_paddingLeft"/>
+
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/id_textview_POSTALCODE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:fontFamily="sans-serif-thin"
+            android:textColor="@color/colorTab"
+            android:text="12214-100"
+            android:textSize="20dp"
+            android:paddingTop="2dp"
+            android:paddingLeft="5dp"
+            />
+
+        <!-- City da Paroquial -->
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/id_textview_paroquia_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
+            android:text="Cidade:"
+            android:textColor="@color/colorFirstText"
+            android:textSize="10dp"
+            android:paddingTop="@dimen/ipdv_textview_paddingTop"
+            android:paddingLeft="@dimen/ipdv_textview_paddingLeft"/>
+
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/id_textview_CITY"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:fontFamily="sans-serif-thin"
+            android:textColor="@color/colorTab"
+            android:text="São José dos Campos"
+            android:textSize="20dp"
+            android:paddingTop="2dp"
+            android:paddingLeft="5dp"
+            android:paddingBottom="20dp"
+            />
+
+
+        <!-- CopyRight -->
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:fontFamily="sans-serif-thin"
+            android:background="@color/color_trademark"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"
+            android:text="Aplicativo Elaborado e Desenvolvido por: YSH mobile"
+            android:textSize="12dp"
+            android:paddingTop="20dp"
+
+            />
+
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:fontFamily="sans-serif-thin"
+            android:textColor="@color/colorWhite"
+            android:background="@color/color_trademark"
+            android:gravity="center"
+            android:text="www.ysh.com.br"
+            android:textSize="15dp"
+
+            />
+
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:fontFamily="sans-serif-thin"
+            android:textColor="@color/colorWhite"
+            android:background="@color/color_trademark"
+            android:gravity="center"
+            android:text="São José dos Campos,SP-BRASIL 2015 - ® Todos os direitos reservados"
+            android:textSize="10dp"
+
+            android:paddingBottom="20dp"
+            />
+
 
     </LinearLayout>
 </ScrollView>

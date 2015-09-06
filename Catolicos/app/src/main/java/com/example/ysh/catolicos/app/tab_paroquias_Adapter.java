@@ -59,11 +59,13 @@ public class tab_paroquias_Adapter extends CursorAdapter {
         int layoutId = -1;
         switch (viewType) {
             case VIEW_TYPE_MYPARIH: {
-                layoutId = R.layout.list_item_paroquias; //list_item_missas_MyParish;
+                //layoutId = R.layout.list_item_paroquias; //list_item_missas_MyParish;
+                layoutId = R.layout.list_item_paroquia_simples;
                 break;
             }
             case VIEW_TYPE_OTHER: {
-                layoutId = R.layout.list_item_paroquias;
+                //layoutId = R.layout.list_item_paroquias;
+                layoutId = R.layout.list_item_paroquia_simples;
                 break;
             }
         }
@@ -104,14 +106,16 @@ public class tab_paroquias_Adapter extends CursorAdapter {
         /*
             Seta o Endereco da paroquia no tinem da list view
         */
-        String mparish_address = cursor.getString(tab_paroquias.COL_PARISH_ADDRESS);
-        viewHolder.parish_address.setText(mparish_address);
+        //String mparish_address = cursor.getString(tab_paroquias.COL_PARISH_ADDRESS);
+        //viewHolder.parish_address.setText(mparish_address);
 
 
         /*
             Seta os tres icones do item na list view
             *Image Alpha aceita de 0 ... 255
         */
+
+        /*
         viewHolder.calice_iconView.setImageResource(R.drawable.ic_calice);
         viewHolder.calice_iconView.setImageAlpha(255);
 
@@ -120,6 +124,6 @@ public class tab_paroquias_Adapter extends CursorAdapter {
 
         viewHolder.rosario_iconView.setImageResource(R.drawable.ic_terco);
         viewHolder.rosario_iconView.setImageAlpha(255);
-
+        */
     }
 }

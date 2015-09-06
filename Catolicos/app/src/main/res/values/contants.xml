@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="par_NOME">0</integer>
+    <integer name="par_REGPASTORAL">1</integer>
+    <integer name="par_PHONE">2</integer>
+    <integer name="par_EMAIL">3</integer>
+    <integer name="par_WEBPAGE">4</integer>
+    <integer name="par_ADDRESS">5</integer>
+    <integer name="par_POSTALCODE">6</integer>
+    <integer name="par_CITY">7</integer>
+    <integer name="par_LATITUDE">8</integer>
+    <integer name="par_LONGETUDE">9</integer>
+
+</resources>
