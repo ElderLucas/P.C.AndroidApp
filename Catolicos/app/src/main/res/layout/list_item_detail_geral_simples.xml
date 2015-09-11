@@ -10,15 +10,18 @@
     android:paddingTop="2dp"
     android:orientation="horizontal">
 
-    <!-- Atividades dos dia -->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="@dimen/detailview_item_margin"
+        android:layout_marginRight="@dimen/detailview_item_margin"
+        android:layout_marginTop="@dimen/detailview_item_margin"
+        android:layout_marginBottom="@dimen/detailview_item_margin"
+        android:background="@drawable/bg_parent_rouded_corner_detailview"
+        android:elevation="@dimen/detailview_item_elevation"
         android:orientation="horizontal"
-        android:background="@color/colorWhite"
-        android:elevation="2dp"
-        android:baselineAligned="false">
+        android:paddingBottom="@dimen/detailview_item_padding_top_bottom"
+        android:paddingTop="@dimen/detailview_item_padding_top_bottom" >
 
         <ImageView
             android:id="@+id/detailview_geral_icon"

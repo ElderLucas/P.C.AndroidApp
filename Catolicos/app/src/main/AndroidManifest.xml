@@ -58,7 +58,6 @@
                 android:value="com.example.ysh.catolicos.app.DetailActivityParoquia" />
         </activity>
 
-
         <!-- Registrando o Content Provider -->
         <!-- android:authorities="com.example.ysh.catolicos.app" -->
         <provider

@@ -20,6 +20,13 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     //This method return the fragment for the every position in the View Pager
+
+    /*
+        Aqui nesse if tem um comportamento bem interessante:
+        Ao escorregar as tbs entre 0, 1 e 2 observa-se que quando estou na primeira Tab, Zero, a Tab 1 vai ser criada tbm, prq sera necessario que a tab vizinha esteja criada
+        Ou seja, qndo estou na 2, a 1 estara "criada" tambem.e qndo estou a 0 a um tambem.
+      */
+
     @Override
     public Fragment getItem(int position) {
 
@@ -35,8 +42,9 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         }
         else             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
         {
-            tab_confissoes tab_conf = new tab_confissoes();
-            return tab_conf;
+            //tab_confissoes tab_conf = new tab_confissoes();
+            VolleyController volley = new VolleyController();
+            return volley;
         }
 
 

@@ -4,12 +4,16 @@
     <file url="file://$PROJECT_DIR$/app/build.gradle" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/build/generated/source/r/debug/com/example/ysh/catolicos/app/R.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/ysh/catolicos/app/DetailFragmentParoquia_ListViewAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/ysh/catolicos/app/FeedImageView.java" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/ysh/catolicos/app/InfoDetailFragment.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/ysh/catolicos/app/InfoDetailParoquia.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/ysh/catolicos/app/MainActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/ysh/catolicos/app/Utilities.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/ysh/catolicos/app/ViewPagerAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/ysh/catolicos/app/VolleyController.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/ysh/catolicos/app/data/CatolicosContract.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/ysh/catolicos/app/sync/CatolicosSyncAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/ysh/catolicos/app/tab_paroquias.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/volley/LruBitmapCache.java" charset="windows-1252" />
   </component>
 </project>

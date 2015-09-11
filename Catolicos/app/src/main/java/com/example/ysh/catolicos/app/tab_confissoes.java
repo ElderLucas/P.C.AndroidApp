@@ -22,6 +22,7 @@ public class tab_confissoes extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+
         String[] data = {
                 "Catedral - 19h00 - Sexta Feira",
                 "NS Aparecida - 19h00 - Sexta Feira",
